@@ -1,6 +1,15 @@
 package com.revature.day3;
 
-public class CumulativeExample {
+import com.revature.day3.oop.Player;
+
+/*class, method, variable
+
+public - can be accessed within class, within a package, within project, whole world
+private	- can only be accessed within the class
+protected - can be accessed within a class, package and subclass
+default - can be accessed within class and package*/
+
+public class CumulativeExample extends Player {
 
 	private int i;
 
@@ -19,6 +28,11 @@ public class CumulativeExample {
 		System.out.println(new CumulativeExample().toString()); 	//
 	}
 
+	void testMethod(){
+		CumulativeExample p1 = new CumulativeExample();
+		p1.medals();
+	}
+	
 	
 	
 }

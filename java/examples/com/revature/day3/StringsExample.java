@@ -1,10 +1,13 @@
 package com.revature.day3;
 
+import java.util.StringTokenizer;
+
 public class StringsExample {
 
 	public static void main(String[] args) {
-		myString();
+		//myString();
 		//strBuff();
+		testStr();
 	}
 
 	static void myString() {
@@ -59,5 +62,37 @@ public class StringsExample {
 
 		System.out.println(s1);
 	}
+	
+	static void testStr(){
+		String s3 = new String("hello");
+		String s1 = "hello";
+		String s2 = "hello";
+		
+		//Object
+		
+		System.out.println(s1.hashCode());
+		System.out.println(s2.hashCode());
+		System.out.println(s3.hashCode());
+		System.out.println(s1.equals(s2));		//true
+		System.out.println(s1.equals(s3));		//true
+	}
+	
+	void myStringToken(){
+		String s3 = "I want to split my strings based on a delimiter space";
+		StringTokenizer strToken = new StringTokenizer(s3, "a");
+		System.out.println("first " + strToken.nextToken("o"));
+		while (strToken.hasMoreTokens()){
+			System.out.println("more " + strToken.nextToken());
+		}
+	}
 
 }
+
+
+
+
+
+
+
+
+
