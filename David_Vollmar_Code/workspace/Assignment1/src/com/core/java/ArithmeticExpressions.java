@@ -18,7 +18,10 @@ public class ArithmeticExpressions {
 		System.out.println(a-b);
 	}
 	static void divide(int a, int b){
-		System.out.println(a/b);
+		if(b == 0)
+			System.out.println(0);
+		else
+			System.out.println(a/b);
 	}
 	static void multiply(int a, int b){
 		System.out.println(a*b);
