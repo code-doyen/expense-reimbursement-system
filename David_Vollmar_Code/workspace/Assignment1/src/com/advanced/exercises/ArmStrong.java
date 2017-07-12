@@ -7,9 +7,9 @@ public class ArmStrong {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		int arm=0, a, d, no;
-		Scanner s = new Scanner(System.in);
+		Scanner keyboard = new Scanner(System.in);
 		System.out.println("Enter a number to check if it is Amrstrong:");
-		no = s.nextInt();
+		no = keyboard.nextInt();
 		d = no;
 		while(no >0){
 			a=no%10;
@@ -20,6 +20,7 @@ public class ArmStrong {
 			System.out.println("ArmStrong");
 		else
 			System.out.println("Not ArmStrong");
+		keyboard.close();
 	}
 
 }

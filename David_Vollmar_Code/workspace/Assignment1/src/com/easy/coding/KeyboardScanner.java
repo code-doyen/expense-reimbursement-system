@@ -12,7 +12,8 @@ public class KeyboardScanner {
 		System.out.print("Input an double variable: ");
 		System.out.println("Double keyed: " + keyboard.nextDouble());
 		System.out.print("Input an String variable: ");
-		System.out.println("String keyed: " + keyboard.next() + keyboard.nextLine());	
+		System.out.println("String keyed: " + keyboard.next() + keyboard.nextLine());
+		keyboard.close();
 	}
 
 }

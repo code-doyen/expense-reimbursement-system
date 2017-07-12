@@ -7,8 +7,9 @@ public class IsPrime {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		System.out.print("Enter a number and I'll tell you whether it is prime: ");
-		Scanner s = new Scanner(System.in);
-		isPrime(s.nextInt());
+		Scanner keyboard = new Scanner(System.in);
+		isPrime(keyboard.nextInt());
+		keyboard.close();
 	}
 	public static void isPrime(int num){
 		boolean divisorFound = false;

@@ -1,5 +1,5 @@
 package com.easy.coding;
-import java.math.*;
+
 import java.util.Scanner;
 
 public class GradesStatistics {
@@ -26,6 +26,7 @@ public class GradesStatistics {
 		System.out.println("Min recorded grade: " + minimum(grades));
 		System.out.println("Max recorded grade: " + maximum(grades));
 		System.out.println("Standard Deviation: " + standardDeviation(grades));
+		keyboard.close();
 	}
 	public static int average(int grade[]){
 		int answer =0;
