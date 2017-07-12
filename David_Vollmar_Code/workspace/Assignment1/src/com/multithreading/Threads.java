@@ -14,10 +14,10 @@ public class Threads {
 		t1.start();
 		t2.threadNumber = 2;
 		t2.start();
-		//t2.join();
+		t2.join();
 		t3.threadNumber = 3;
 		t3.start();
-		//t3.join();
+		t3.join();
 		
 		
 		System.out.println(t1.getCounts());
