@@ -38,6 +38,7 @@ public class Employees{
 		List<Employees> list= new ArrayList<>();
 		list.add(new Employees("David", 36, "Software Development"));
 		list.add(new Employees("Leah", 26, "Model"));
+		list.add(new Employees("Cat", 21, "Actress"));
 		//Sorting by age
 		SortedSet<Employees> ageSet = new TreeSet<>(new EmployeeAgeComparator());
 		ageSet.addAll(list);
@@ -50,18 +51,25 @@ public class Employees{
 		SortedSet<Employees> departmentSet = new TreeSet<>(new EmployeeDepartmentComparator());
 		departmentSet.addAll(list);
 		//System.out.println(departmentSet);
+		Employees t = null;
 		System.out.println("Sorted by age");
 		Iterator<Employees> i = ageSet.iterator();
-		while(i.hasNext())
-			System.out.println(i.next());
-		System.out.println("Sorted by name");
+		while(i.hasNext()){
+			t = i.next();
+			System.out.println(t.getName()+", "+t.getAge()+", "+t.getDepartment());
+		}
+		System.out.println("\nSorted by name");
 		Iterator<Employees> ii = nameSet.iterator();
-		while(ii.hasNext())
-			System.out.println(ii.next());
-		System.out.println("Sorted by department");
+		while(ii.hasNext()){
+			t = ii.next();
+			System.out.println(t.getName()+", "+t.getAge()+", "+t.getDepartment());
+		}
+		System.out.println("\nSorted by department");
 		Iterator<Employees> iii = departmentSet.iterator();
-		while(iii.hasNext())
-			System.out.println(iii.next());
+		while(iii.hasNext()){
+			t = iii.next();
+			System.out.println(t.getName()+", "+t.getAge()+", "+t.getDepartment());
+		}
 	}
 	
 }
