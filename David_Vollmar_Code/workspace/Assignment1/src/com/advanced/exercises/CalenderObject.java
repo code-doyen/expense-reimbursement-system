@@ -1,4 +1,4 @@
-package com.advanced.excercises;
+package com.advanced.exercises;
 
 import java.util.Calendar;
 import java.util.Scanner;

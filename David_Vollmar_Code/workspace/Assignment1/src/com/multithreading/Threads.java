@@ -4,8 +4,8 @@ import java.util.ConcurrentModificationException;
 
 public class Threads {
 
-	public static void main(String[] args) throws InterruptedException{
-		// TODO Auto-generated method stub
+		public static void main(String[] args) throws InterruptedException{
+			// TODO Auto-generated method stub
 		SynchronizeThread t1 = new SynchronizeThread();
 		SynchronizeThread t2 = new SynchronizeThread();
 		SynchronizeThread t3 = new SynchronizeThread();
