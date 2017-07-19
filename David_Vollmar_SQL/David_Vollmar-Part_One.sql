@@ -47,17 +47,9 @@ select * from customer;
 
 
 --3.1 SQL defined functions
-create or replace function get_time return localtimestamp
-is
-    time_c localtimestamp;
-begin
- open time_c for SELECT localtimestamp FROM DUAL;
- return time_c;
-end;
-/
-select get_time from dual;
+select to_char(sysdate, 'HH24:MI:SS') as Current_TIME from dual ;  --to_char(sysdate, 'MM-DD-YYYY HH24:MI:SS')
 
-select * from mediatype;
+select length(name) as media_type_length from mediatype;
 
 --3.2 System defined aggregate
 create or replace function invoice_avg return number
@@ -96,7 +88,7 @@ create or replace function after_1968 return sys_refcursor
 is
     employee_c sys_refcursor;
 begin
- open employee_c for select * from employee where birthdate >= to_date('01-01-1968', 'DD-MM-YYYY');
+ open employee_c for select * from employee where birthdate > to_date('01-01-1968', 'DD-MM-YYYY');
  return employee_c;
 end;
 /
@@ -170,7 +162,7 @@ declare employee_company_relation sys_refcursor;
     lastname varchar(100);
     company varchar(100);
 begin
-    employees_company(1, employee_company_relation);
+    employees_company(5, employee_company_relation);
     loop
         fetch employee_company_relation into firstname, lastname, company;
         exit when employee_company_relation%notfound;
@@ -191,10 +183,10 @@ begin
     delete from invoice where invoiceid = invid;
     
     -- to complete the transaction
-    -- commit;
+    commit;
 end;
 /
---deletes invoive with id 216
+--deletes invoive with id 4
 exec delete_invoice(4); 
 
 
@@ -205,14 +197,14 @@ begin
     insert into customer values(customerid, firstname, lastname, company, address, city, state, country, postalcode, phone, fax, email, supportrepid);
     
     --to complete the transaction
-    -- commit;
+    commit;
 end;
 /
 --adds new customer
 exec add_customer(11,'Leah', 'Vollmar', 'Model', 'Some Place Ave.', 'Tampa', 'Fl', 'USA', '33504', '419-494-5566', '419-494-5566', 'david.bradley.vollmar@gmail.com', 2);
 
 select * from customer;
-desc customer;
+--desc customer;
 
 
 --6.1 Triggers After/For
@@ -252,6 +244,43 @@ before delete on customer
 for each row --required if you want to see/manipulate the row's data
 
 begin
- dbms_output.put_line('Old title: ' || :OLD.title || 'update to  New title: ' || :NEW.title);
+ dbms_output.put_line('Old title: ' || :OLD.customerid);
 END;
 /
+--delete invoice where customerid = 1;
+--delete customer where customerid = 1;
+select * from customer;
+
+
+--7.1 Inner Join
+select customer.firstname, customer.lastname, invoice.invoiceid from customer 
+inner join invoice on invoice.customerid = customer.customerid order by invoice.invoiceid;
+
+--7.2 Outer Join
+select customer.customerid, customer.firstname, customer.lastname, invoice.invoiceid, invoice.total from customer 
+full outer join invoice on invoice.customerid = customer.customerid order by customer.customerid;
+
+--7.3 Right Join
+select artist.name, album.title from album 
+right join artist on artist.artistid = album.albumid;
+
+--7.4 Left Join
+select artist.name from album cross join artist order by name asc;
+
+--7.5 Self Join
+select (reports.firstname || ' ' || reports.lastname) as Employee, (emp.firstname || ' ' || emp.lastname) as Reports_To 
+from employee emp
+inner join employee reports
+on emp.employeeid = reports.reportsto;
+
+--7.6 Complicated Join
+select * from invoiceline inner join invoice on invoiceline.invoiceid = invoice.invoiceid
+inner join customer on invoice.customerid = customer.customerid 
+inner join employee on customer.supportrepid = employee.employeeid
+inner join track on invoiceline.trackid = track.trackid 
+inner join genre on track.genreid = genre.genreid
+inner join mediatype on track.mediatypeid = mediatype.mediatypeid
+inner join playlisttrack on track.trackid = playlisttrack.trackid 
+inner join playlist on playlisttrack.playlistid = playlist.playlistid
+inner join album on track.albumid = album.albumid
+inner join artist on album.artistid = artist.artistid;
