@@ -9,7 +9,7 @@ public final class ConnectionUtil {
 	
 	/* Get connection to JDBC */
 	public static Connection getConnection() throws SQLException {
-		String url = "usfdbjava.cvywdbgy1ui6.us-east-2.rds.amazonaws.com:1521:ORCL";
+		String url = "jdbc:oracle:thin:@usfdbjava.cvywdbgy1ui6.us-east-2.rds.amazonaws.com:1521:ORCL";
 		String username = "login_test_in";
 		String password = "p4ssw0rd";
 		
