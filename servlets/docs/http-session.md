@@ -8,11 +8,11 @@
 *   Data in session scope exist for as long as the user is using the site
 
 *   Some methods:
-*   	`setAttibute`
-*   	`getAttribute`
-*   	`removeAttribute`
-*   	`invalidate`
-*   	`setMaxInactiveInterval`
+    *   	setAttibute
+    *   	getAttribute
+    *   	removeAttribute
+    *   	invalidate
+    *   	setMaxInactiveInterval
 
 
 #  HttpServletRequest
@@ -20,9 +20,9 @@
 *   Data in request scope exist until a response is sent back to the client
 
 *   Some methods:
-*   	`setAttribute`
-*   	`getAttribute`
-*   	`getParameter (form data / url data)`
+    *   	setAttribute
+    *   	getAttribute
+    *   	getParameter (form data / url data)
 
 
 ```
