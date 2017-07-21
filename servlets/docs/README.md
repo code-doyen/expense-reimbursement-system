@@ -3,7 +3,6 @@
 * [servlets](servlets/docs/servlets.md)
 * [redirect vs forward](servlets/docs/redirect-vs-forward.md)
 * [printwriter](servlets/docs/printwriter.md)
-* [freemarker](servlets/docs/freemarker.md)
 * [http session](servlets/docs/http-session.md)
 * [ServletContext and ServletConfig](servlets/docs/servletcontext-and-servletconfig.md)
 
