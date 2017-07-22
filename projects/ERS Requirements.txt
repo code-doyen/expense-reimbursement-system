@@ -38,7 +38,7 @@ Technologies:
 -log4j
 
 Environment:
--Weblogic
+-not Weblogic use TomCat
 -Oracle 11g Database
 -Eclipse/Spring Tools Suite
 -SQL Developer
