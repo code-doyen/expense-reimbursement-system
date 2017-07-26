@@ -1,14 +1,14 @@
-#JavaScript Overview - learn to program in JavaScript
+# JavaScript Overview - learn to program in JavaScript
 
-[background](background.md)  
-[values](values.md)  
-[operators](operators.md)  
-[objects](objects.md)  
-[arrays](arrays.md)  
-[functions](functions.md)  
-[inheritance](inheritance.md)  
-[watch out](watch-out.md)  
-[other](other.md)
+* [background](background.md)  
+* [values](values.md)  
+* [operators](operators.md)  
+* [objects](objects.md)  
+* [arrays](arrays.md)  
+* [functions](functions.md)  
+* [inheritance](inheritance.md)  
+* [watch out](watch-out.md)  
+* [other](other.md)
 
 
 # DOM - learn how JavaScript works in a browser
