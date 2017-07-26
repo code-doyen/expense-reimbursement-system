@@ -12,7 +12,7 @@
 
 
 # DOM - learn how JavaScript works in a browser
-# JavaScript and the DOM
+## JavaScript and the DOM
 
 * [intro](intro.md)  
 * [manipulating the dom](manipulating-dom.md)  
