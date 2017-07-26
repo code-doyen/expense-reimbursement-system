@@ -20,6 +20,11 @@ public class Customer {
 		this.id = id;
 	}
 	
+	public Customer(String username) {
+		this();
+		this.username = username;
+	}
+	
 	public Customer(String username, String password) {
 		this();
 		this.username = username;
