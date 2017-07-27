@@ -11,7 +11,16 @@
 <title>Welcome to the Java</title>
 </head>
 <body>
-<!-- Expression Language (Doesn't need JSTL library to work) -->
-Welcome to the Java: ${ loggedCustomer.firstName }
+	<!-- Expression Language (Doesn't need JSTL library to work) -->
+	Welcome to the Java: ${ loggedCustomer.firstName }
+
+	<br>
+	<input id="username" placeholder="Username" /> 
+	<button id="checkUsername">Check</button>
+	
+	<br>
+	<h5 id="message"></h5>
+	
+	<script type="text/javascript" src="resources/js/checkUsername.min.js"></script>
 </body>
 </html>

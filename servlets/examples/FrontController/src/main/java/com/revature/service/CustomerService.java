@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.revature.dao.CustomerDaoJdbc;
 import com.revature.model.Customer;
+import com.revature.util.FinalUtil;
 
 /* Class that executes business logic related to customers */
 public class CustomerService {
@@ -54,5 +55,13 @@ public class CustomerService {
 		}
 		
 		return new Customer();
+	}
+	
+	/* Calls the select method of the DAO, if the user returned is empty, then username is not taken. */
+	public boolean isUsernameTaken(Customer customer) {
+		if(CustomerDaoJdbc.getCustomerDaoJdbc().select(customer).getUsername().equals(FinalUtil.EMPTY_STRING)) {
+			return false;
+		}
+		return true;
 	}
 }
