@@ -13,5 +13,12 @@
 <body>
 <!-- Expression Language (Doesn't need JSTL library to work) -->
 Welcome to the Java: ${ loggedCustomer.firstName }
+
+
+<input id="username" name="username" />
+<button id="checkButton">Check</button>
+<h3 id="message"></h3>
+
+<script src='resources/js/checkUsername.js'></script>
 </body>
 </html>

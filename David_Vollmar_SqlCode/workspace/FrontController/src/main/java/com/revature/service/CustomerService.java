@@ -55,4 +55,12 @@ public class CustomerService {
 		
 		return new Customer();
 	}
+	
+	//Excutes select on the DAO and checks if customer exists
+	public boolean isUsernameTaken(Customer customer){
+		if(CustomerDaoJdbc.getCustomerDaoJdbc().select(customer).getUsername().equals("")){
+			return false;
+		}
+		return true;
+	}
 }

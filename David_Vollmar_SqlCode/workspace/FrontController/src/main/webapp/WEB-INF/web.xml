@@ -19,4 +19,16 @@
   	<servlet-name>MasterServlet</servlet-name>
   	<url-pattern>*.do</url-pattern>
   </servlet-mapping>
+  
+  
+  
+  <servlet>
+  	<servlet-name>AjaxServlet</servlet-name>
+  	<servlet-class>com.revature.ajax.AjaxServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>AjaxServlet</servlet-name>
+  	<url-pattern>*.ajax</url-pattern>
+  </servlet-mapping>
 </web-app>

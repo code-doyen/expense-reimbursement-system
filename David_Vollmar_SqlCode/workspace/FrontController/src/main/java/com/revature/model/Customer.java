@@ -26,6 +26,10 @@ public class Customer {
 		this.password = password;
 	}
 	
+	public Customer(String username) {
+		this();
+		this.username = username;
+	}
 	public Customer(int id, String firstName, String lastName, String username, String password) {
 		this.firstName = firstName;
 		this.lastName = lastName;
