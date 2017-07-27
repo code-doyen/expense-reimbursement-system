@@ -1,12 +1,20 @@
---drop user project1;
-
+--drop user
+--drop user David_Vollmar_project1;
 create user David_Vollmar_project1 identified by p4ssw0rd;
 grant dba to David_Vollmar_project1 with admin option;
-drop table reimbursement;
-drop table reimbursement_status;
-drop table reimbursement_type;
-drop table staff;
-drop table staff_rank;
+
+--drop curernt sequences
+ drop sequence staff_seq;
+ drop sequence reimbursement_seq;
+ drop sequence reimbursement_type_seq;
+ drop sequence reimbursement_status_seq;
+
+--drop current tables
+ drop table reimbursement;
+ drop table reimbursement_status;
+ drop table reimbursement_type;
+ drop table staff;
+ drop table staff_rank;
 
 create table reimbursement_status(
     reimbursement_status_id number not null,
@@ -176,19 +184,14 @@ exec insert_reimbursement(1,  212, 1, 'test', TO_DATE('2009-1-1 00:00:00','yyyy-
 
 commit;
 exit;
+
 -- table views
  select * from reimbursement_type;
  select * from reimbursement_status;
  select * from reimbursement;
  select * from staff_rank;
  select * from staff;
-
  
---drop curernt sequences
- drop sequence staff_seq;
- drop sequence reimbursement_seq;
- drop sequence reimbursement_type_seq;
- drop sequence reimbursement_status_seq;
 --value removal sequence
  delete from reimbursement_type where reimbursement_type_id=1;
  delete from staff where staff_id=1;
