@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html ng-app="gameStore">
+<head>
+<meta charset="ISO-8859-1">
+<title>Pet Store</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.js" integrity="sha256-+f0njwC9E3IT9zDPry5DSIcGdSxQYezBaStQ4L0ZRfU=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://code.angularjs.org/1.6.1/angular-route.js"></script>
+
+</head>
+<body >
+
+		<a href="#home"> Home</a>
+		<a href="#superheros"> Super Heros</a>
+		<a href="#starwars"> Star Wars </a>
+		<a href="#racing"> Racing </a>
+		<a href="#leagueoflegends"> League of Legends </a>
+		<div ng-view>  </div>
+<script type="text/javascript">
+	angular.module("gameStore", ["ngRoute"]);
+	angular.module("gameStore").config(function($routeProvider, $locationProvider) {
+		$locationProvider.hashPrefix("");
+		$routeProvider
+		.when("/superheros", {
+			templateUrl: "superheros.html"
+		})
+		.when("/starwars", {
+			templateUrl: "starwars.html"
+		})
+		.when("/racing", {
+			templateUrl: "racing.html"
+		})
+		.when("/leagueoflegends", {
+			templateUrl: "leagueoflegends.html"
+		})
+		.otherwise({
+			templateUrl: "home.html"
+		})
+	});
+	</script>		
+</body>	
+</html>
+
+
+
