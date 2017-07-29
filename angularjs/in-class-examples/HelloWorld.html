@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Welcome to angularJS</title>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</head>
+<body class="container">
+	<h2>Learning Directives</h2>
+	<div ng-app="" >
+		<h3>Data binding inside the scope of ng-app using ng-model, ng-bind and {{}}</h3>
+		<div name="Data binding">
+			Enter your text: 
+			<input type="text" ng-model="helloworld" placeholder="type here"/>
+			<br>
+			<h4>Following is from ng-bind</h4>
+			<p ng-bind="helloworld"></p>
+			<h4>helloworld * 100 = {{helloworld * 100}}</h4>
+			<br>
+			<h4>Following is from curly braces {{}}</h4>
+			<p>{{helloworld}}</p>
+		</div>
+		<div> <h3>Let's do some math</h3>
+			 <h4>5 + 5 = {{5 + 5}}</h4>
+				<h4>5 - 5 = {{5 - 5}}</h4>
+				<h4>5 / 5 = {{5 / 5}}</h4>
+				<h4>5 * 5 = {{5 * 5}}</h4>
+				
+		</div>
+		<div ng-init="personaldetails={'name': 'Yuvi','age': 19,'school':'xyz'}">
+			<h3>ng-repeat</h3>
+			<ul>
+				<li ng-repeat="p in personaldetails">{{p}}</li>
+				<li ng-repeat="(key,value) in personaldetails">{{key + ", " + value}}</li>
+			</ul>
+			
+			<ol ng-init="myarray = [12,34,56,78,90,13]">
+				<li ng-repeat="a in myarray">{{a}}</li>
+			</ol>
+		</div>
+		<div>
+			<h4>ng-if</h4>
+			<p ng-if=true> This should be printed in paragraph</p>
+			<p ng-if=false> This should not be printed in paragraph</p>
+		</div>
+		<div>
+			<h4>ng-if</h4>
+			<p ng-show=true> This should be printed in paragraph</p>
+			<p ng-show=false> This should not be printed in paragraph</p>
+		</div>
+		<div>
+			<h4>ng-if</h4>
+			<p ng-hide=true> This should not be printed in paragraph</p>
+			<p ng-hide=false> This should be printed in paragraph</p>
+		</div>
+	</div>
+	
+	<div>
+		<h3> Data binding outside the scope of ng-app should not work</h3>
+		<div >
+			Enter your text: 
+			<input type="text" ng-model="helloworld" placeholder="type here"/>
+			<br>
+			<h4>Following is from ng-bind</h4>
+			<p ng-bind="helloworld"></p>
+			<br>
+			<h4>Following is from {{}}</h4>
+			<p>{{helloworld}}</p>
+		</div>
+	</div>
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
