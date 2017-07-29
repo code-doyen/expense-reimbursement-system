@@ -12,13 +12,13 @@ public class Main {
 		
 		//Test insert procedure
 		System.out.println(StaffService.getStaffService().registerStaffSecure(
-				new Staff("username", "password", 5, "elena", "vollmar", " ", "elena@bgsu.edu", "Manager")));
-		//insert_staff('david', 'vollmar', 5, 'david', 'vollmar', null, 'vollmad@bgsu.edu', 'Pro')
+				new Staff("username", "password", 4, "elena", "vollmar", null, "elena@bgsu.edu", "Manager")));
+		//insert_staff("username", "password", , "elena", "vollmar", null, "elena@bgsu.edu", "Manager")
 		//Test select all
 		System.out.println(StaffService.getStaffService().listAllUsers());
 
 		//Test login
 		System.out.println(StaffService.getStaffService().login(
-				new Staff("david","1234")));
+				new Staff("david","vollmar")));
 	}
 }

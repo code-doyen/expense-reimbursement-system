@@ -44,6 +44,7 @@ public class StaffDaoJdbc implements StaffDao {
 			statement.setString(++statementIndex, staff.getLastName().toUpperCase());
 			statement.setString(++statementIndex, staff.getUsername().toLowerCase());
 			statement.setString(++statementIndex, staff.getPassword());
+			
 
 			if(statement.executeUpdate() > 0) {
 				return true;
@@ -68,10 +69,14 @@ public class StaffDaoJdbc implements StaffDao {
 			CallableStatement statement = connection.prepareCall(command);
 			
 			//Set attributes to be inserted
-			statement.setString(++statementIndex, staff.getFirstName().toUpperCase());
-			statement.setString(++statementIndex, staff.getLastName().toUpperCase());
 			statement.setString(++statementIndex, staff.getUsername().toLowerCase());
 			statement.setString(++statementIndex, staff.getPassword());
+			statement.setInt(++statementIndex, staff.getRank());
+			statement.setString(++statementIndex, staff.getFirstName());
+			statement.setString(++statementIndex, staff.getFirstName().toUpperCase());
+			statement.setString(++statementIndex, staff.getPhone());
+			statement.setString(++statementIndex, staff.getEmail());
+			statement.setString(++statementIndex, staff.getPosition().toUpperCase());
 			
 			if(statement.executeUpdate() > 0) {
 				return true;
@@ -99,8 +104,8 @@ public class StaffDaoJdbc implements StaffDao {
 						result.getString("staff_username"),
 						result.getString("staff_password"),
 						result.getInt("staff_rank"),
-						result.getString("staff_firstname"),
-						result.getString("staff_lastname"),
+						result.getString("staff_first_name"),
+						result.getString("staff_last_name"),
 						result.getString("staff_phone"),
 						result.getString("staff_email"),
 						result.getString("staff_position")
@@ -115,10 +120,10 @@ public class StaffDaoJdbc implements StaffDao {
 	/* Select all staffs */
 	public List<Staff> selectAll() {
 		try(Connection connection = ConnectionUtil.getConnection()) {
+			
 			String command = "select staff_id, staff_username, staff_password, staff_rank, staff_first_name, staff_last_name, staff_phone, staff_email, rank_description as staff_position from staff inner join staff_rank on staff_rank = rank_id";
 			PreparedStatement statement = connection.prepareStatement(command);
 			ResultSet result = statement.executeQuery();
-
 			List<Staff> staffList = new ArrayList<>();
 			while(result.next()) {
 				staffList.add(new Staff(
@@ -126,8 +131,8 @@ public class StaffDaoJdbc implements StaffDao {
 						result.getString("staff_username"),
 						result.getString("staff_password"),
 						result.getInt("staff_rank"),
-						result.getString("staff_firstname"),
-						result.getString("staff_lastname"),
+						result.getString("staff_first_name"),
+						result.getString("staff_last_name"),
 						result.getString("staff_phone"),
 						result.getString("staff_email"),
 						result.getString("staff_position")
@@ -136,6 +141,7 @@ public class StaffDaoJdbc implements StaffDao {
 
 			return staffList;
 		} catch (SQLException e) {
+			System.out.println("select in");
 			LogUtil.logger.warn("Exception selecting all staffs", e);
 		} 
 		return new ArrayList<>();

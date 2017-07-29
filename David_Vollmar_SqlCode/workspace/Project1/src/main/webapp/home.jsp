@@ -12,6 +12,6 @@
 </head>
 <body>
 <!-- Expression Language (Doesn't need JSTL library to work) -->
-Welcome to the Java: ${ loggedCustomer.firstName }
+Welcome to the Java: ${ loggedStaff.firstName }
 </body>
 </html>
