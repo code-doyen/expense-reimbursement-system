@@ -96,10 +96,15 @@ end;
 
 create or replace procedure insert_staff(
 staff_username varchar2, password varchar2, staff_rank number, staff_first_name varchar2, staff_last_name varchar2, staff_phone varchar2, staff_email varchar2, staff_position varchar2)
-as
+is
+used number;
 begin
-                              --rankid, rank
-  insert into staff_rank values(staff_rank, staff_position);
+  select count(*) into used from staff_rank where rank_id = staff_rank;
+  --check if staff rank currently exists
+  if used = 0 then
+    insert into staff_rank values(staff_rank, staff_position);
+  end if;
+                            
   insert into staff values(null, staff_username, password, staff_rank, staff_first_name, staff_last_name, staff_phone, staff_email);
   --insert into staff values(null, firstname, lastname, username, password);
   commit;
@@ -172,26 +177,27 @@ end;
 /
 
 
+
+
+commit;
+exit;
+
 --insertion order
 --staff_username varchar2, password varchar2, staff_rank number, staff_first_name varchar2, staff_last_name varchar2, staff_phone varchar2, staff_email varchar2, staff_position varchar2)
 exec insert_staff('david', 'vollmar', 5, 'david', 'vollmar', null, 'vollmad@bgsu.edu', 'Pro');
-
+exec insert_staff('username', 'password', 5, 'elena', 'vollmar', null, 'elena@bgsu.edu', 'Manager');
 --reimbursement_staff_id number, reimbursement_amount number, reimbursement_pending number, 
 --reimbursement_id_description varchar2, reimbursement_date_submitted date, reimbursement_date_approved date,
 --reimbursement_approve_by number, reimbursement_image blob, reimbursement_type number,
 --reimbursement_type_desc varchar2, reimbursement_status_desc varchar2 
 exec insert_reimbursement(1,  212, 1, 'test', TO_DATE('2009-1-1 00:00:00','yyyy-mm-dd hh24:mi:ss'), null, null, null, 1, 'type desc', 'status desc');
-
-commit;
-exit;
-
 -- table views
  select * from reimbursement_type;
  select * from reimbursement_status;
  select * from reimbursement;
  select * from staff_rank;
  select * from staff;
- 
+ select staff_id, staff_username, staff_password, staff_rank, staff_first_name, staff_last_name, staff_phone, staff_email, rank_description as staff_position from staff left join staff_rank on staff_rank = rank_id;
 --value removal sequence
  delete from reimbursement_type where reimbursement_type_id=1;
  delete from staff where staff_id=1;

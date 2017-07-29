@@ -62,7 +62,7 @@ public class StaffDaoJdbc implements StaffDao {
 			int statementIndex = 0;
 			
 			//Pay attention to this syntax
-			//insert_staff('david', 'vollmar', 5, 'david', 'vollmar', null, 'vollmad@bgsu.edu', 'Pro')
+			//insert_staff('user', 'pass', 5, 'david', 'vollmar', null || phone, 'vollmad@bgsu.edu', 'Pro')
 			String command = "{call insert_staff(?,?,?,?,?,?,?,?)}";
 			
 			//Notice the CallableStatement
@@ -92,7 +92,7 @@ public class StaffDaoJdbc implements StaffDao {
 	public Staff select(Staff staff) {
 		try(Connection connection = ConnectionUtil.getConnection()) {
 			int statementIndex = 0;
-			String command = "select staff_id, staff_username, staff_password, staff_rank, staff_first_name, staff_last_name, staff_phone, staff_email, rank_description as staff_position from staff inner join staff_rank on staff_rank = rank_id where staff_username = ?";
+			String command = "select staff_id, staff_username, staff_password, staff_rank, staff_first_name, staff_last_name, staff_phone, staff_email, rank_description as staff_position from staff left join staff_rank on staff_rank = rank_id where staff_username = ?";
 			PreparedStatement statement = connection.prepareStatement(command);
 			statement.setString(++statementIndex, staff.getUsername());
 			ResultSet result = statement.executeQuery();
@@ -121,7 +121,7 @@ public class StaffDaoJdbc implements StaffDao {
 	public List<Staff> selectAll() {
 		try(Connection connection = ConnectionUtil.getConnection()) {
 			
-			String command = "select staff_id, staff_username, staff_password, staff_rank, staff_first_name, staff_last_name, staff_phone, staff_email, rank_description as staff_position from staff inner join staff_rank on staff_rank = rank_id";
+			String command = "select staff_id, staff_username, staff_password, staff_rank, staff_first_name, staff_last_name, staff_phone, staff_email, rank_description as staff_position from staff left join staff_rank on staff_rank = rank_id";
 			PreparedStatement statement = connection.prepareStatement(command);
 			ResultSet result = statement.executeQuery();
 			List<Staff> staffList = new ArrayList<>();
