@@ -2,8 +2,8 @@ package com.revature.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.revature.model.Customer;
-import com.revature.service.CustomerService;
+import com.revature.model.Staff;
+import com.revature.service.StaffService;
 import com.revature.util.FinalUtil;
 
 public class LoginController {
@@ -16,21 +16,21 @@ public class LoginController {
 		}
 		
 		//POST logic
-		Customer loggedCustomer = CustomerService.getCustomerService().login(
-				new Customer(
+		Staff loggedStaff = StaffService.getStaffService().login(
+				new Staff(
 						request.getParameter("username"),
 						request.getParameter("password")
 						));
 		
 		// Wrong Credentials
-		System.out.println(loggedCustomer);
-		if(loggedCustomer.getUsername().equals("")) {
+		System.out.println(loggedStaff);
+		if(loggedStaff.getUsername().equals("")) {
 			return "login.jsp";
 		}
 		else {
-			/* Storing loggedCustomer to current session
+			/* Storing loggedStaff to current session
 			SESSION SCOPE IS AVAILABLE ONLY IN THIS REQUEST (CLIENT) */
-			request.getSession().setAttribute("loggedCustomer", loggedCustomer);
+			request.getSession().setAttribute("loggedStaff", loggedStaff);
 			
 			//Forward user to hit another controller
 			return "/home.do";

@@ -1,0 +1,18 @@
+<div>
+	<h2>Welcome to Star Wars page</h2>
+	<div >
+		<button ng-click="star()">G0  </button>
+		<p>{{content}}</p>
+		<table>
+			<tr>
+				<th>Genre</th>
+				<th>Theme</th>
+			</tr>
+			<tr ng-repeat='(keys, values) in content'>
+				<td>{{keys}}</td><td>{{values}}</td>
+			</tr>
+		
+		</table>
+		
+	</div>
+</div>

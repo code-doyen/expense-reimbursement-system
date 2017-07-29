@@ -1,24 +1,24 @@
 package com.revature;
 
-import com.revature.model.Customer;
-import com.revature.service.CustomerService;
+import com.revature.model.Staff;
+import com.revature.service.StaffService;
 
 /* Welcome to the Java */
 public class Main {
 	public static void main(String[] args) {
 		//Test insert
-		System.out.println(CustomerService.getCustomerService().registerCustomer(
-				new Customer(0,"Peter","Alagna","petronilo","1234")));
-
+		//System.out.println(StaffService.getStaffService().registerStaff(
+		//		new Staff(0,"Peter","Alagna","petronilo","1234")));
+		
 		//Test insert procedure
-		System.out.println(CustomerService.getCustomerService().registerCustomerSecure(
-				new Customer(0,"Test","Number2","test2","1234")));
-
+		System.out.println(StaffService.getStaffService().registerStaffSecure(
+				new Staff("username", "password", 5, "elena", "vollmar", " ", "elena@bgsu.edu", "Manager")));
+		//insert_staff('david', 'vollmar', 5, 'david', 'vollmar', null, 'vollmad@bgsu.edu', 'Pro')
 		//Test select all
-		System.out.println(CustomerService.getCustomerService().listAllUsers());
+		System.out.println(StaffService.getStaffService().listAllUsers());
 
 		//Test login
-		System.out.println(CustomerService.getCustomerService().login(
-				new Customer("petronilo","1234")));
+		System.out.println(StaffService.getStaffService().login(
+				new Staff("david","1234")));
 	}
 }

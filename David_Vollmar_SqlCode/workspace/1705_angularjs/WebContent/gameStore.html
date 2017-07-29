@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Welcome to Game store</title>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js" type="text/javascript"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-route.js" type="text/javascript"></script>
+</head>
+<body ng-app="gameStore">
+		<a href="#home"> Home</a>
+		<a href="#superheros"> Super Heros</a>
+		<a href="#starwars"> Star Wars </a>
+		<a href="#racing"> Racing </a>
+		<a href="#leagueoflegends"> League of Legends </a>
+		<div ng-view>  </div>
+		<!-- <ng-view></ng-view>
+		<div class=ng-view ></div> -->
+		
+<script type="text/javascript">
+	angular.module("gameStore", ["ngRoute"]);
+	angular.module("gameStore").config(function($routeProvider, $locationProvider) {
+		//$locationProvider.hashPrefix("!");
+		$routeProvider
+		.when("/superheros", {
+			templateUrl: 'superheros.html', controller: "superHero"
+		})
+		.when('/starwars', {
+			templateUrl: 'starwars.html', controller: "starwarsCtrl"
+		})
+		.when("/racing", {
+			templateUrl: "racing.html"
+		})
+		.when("/leagueoflegends", {
+			templateUrl: "leagueoflegends.html"
+		})
+		.otherwise({
+			templateUrl: "home.html", controller: "AllGenre"
+		})
+	});
+	
+ 	angular.module("gameStore")
+ 	.controller("starwarsCtrl", function($scope, $http) {
+		$scope.star = function (){
+			$http({
+				method: "GET",
+				url: "https://api.myjson.com/bins/uemol"
+			}).then(function(response) {
+				 //console.log(response);
+				//$scope.starwarsdata = response.data;
+				//console.log(response.data); 
+				$scope.content = response.data;
+		        //$scope.statuscode = response.status;
+		        //$scope.statustext = response.statustext; 
+			});
+		}
+	}); 
+	angular.module("gameStore").controller("AllGenre", function($scope, $http) {
+		$scope.all = function(){
+			$http({
+				method : "GET",
+				url: "https://api.myjson.com/bins/uemol"
+			}).then (function(response){
+				//console.log(response.data);
+				$scope.allcategories = response.data;
+			});
+		}
+	});
+	angular.module("gameStore").controller("superHero", function($scope, $http) {
+		$scope.heroes = function(){
+			$http({
+				method : "GET",
+				url: "https://api.myjson.com/bins/uuifx"
+			}).then (function(response){
+				//console.log(response.data);
+				$scope.allsuperheros = response.data;
+			});
+		}
+	});
+	
+	
+	</script>		
+</body>	
+</html>

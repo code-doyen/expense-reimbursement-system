@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Welcome to angularJS</title>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</head>
+<body>
+<h3>Learning directives</h3>
+	<div ng-app="" class="container">
+	<h4>Data biding inside the scope of ng-app using ng-model, ng-bind and {{}}</h4>
+		<div>
+		Enter your Text: <input type="text" ng-model="helloworld" placeholder="type here" />
+		<br />
+		<h4>The following is from ng-bind</h4>
+		<p ng-bind="helloworld"></p>
+		<br />
+		<h4>Followings is from {{}}</h4>
+		<p>{{helloworld}}</p>
+		
+		</div>
+		<div>
+			<h3>Lets do some math</h3>
+			<p>5+5 = {{5+5}}</p>
+			<p>5-5 = {{5-5}}</p>
+			<p>5/5 = {{5/5}}</p>
+			<p>5*5 = {{5*5}}</p>
+			<p>helloworld*100 = {{helloworld*100}}</p>
+		</div>
+		<div ng-init="personDetails={'name' : 'David', 'age' : 36, 'school' : 'BGSU'}">
+			<h3>ng-repeat</h3>
+			<ul>
+			<li ng-repeat="p in personDetails">{{p}}</li>
+			</ul>
+
+			<ul ng-init"myarray ={10,20,30,40,50,60,70,80,90,100}">
+				<li ng-repeat="n in myarray">{{n}}</li>
+			</ul>
+			<div>
+				<p ng-if=true>This should be printed</p>
+				<p ng-if=false>This should not be printed</p>
+			</div>
+			<div>
+				<p ng-show=true>This should be printed</p>
+				<p ng-show=false>This should not be printed</p>
+			</div>
+			<div>
+				<p ng-hide=true>This not should be printed</p>
+				<p ng-hide=false>This should be printed</p>
+			</div>
+		</div>
+		</div>
+		
+		<!--  <div>
+		<h3>Data binding outside the scope of ng-app should not work</h3>
+		<div class="container">
+		<h4>Data biding inside the scope of ng-app using ng-model, ng-bind and {{}}</h4>
+		<div>
+		Enter your Text: <input type="text" ng-model="helloworld" placeholder="type here" />
+		<br />
+		<h4>The following is from ng-bind</h4>
+		<p ng-bind="helloworld"></p>
+		<br />
+		<h4>Followings is from {{}}</h4>
+		<p>{{helloworld}}</p>
+		</div>-->
+	</div>
+	
+	</div>
+	
+	
+</body>
+</html>
