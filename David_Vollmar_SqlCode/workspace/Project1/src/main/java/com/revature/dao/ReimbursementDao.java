@@ -9,7 +9,6 @@ import com.revature.model.Reimbursement;
 */
 
 public interface ReimbursementDao {
-	public boolean insert(Reimbursement reimbursement);
 	public boolean insertProcedure(Reimbursement reimbursement);
 	public Reimbursement select (Reimbursement reimbursement);
 	public List<Reimbursement> selectAll();

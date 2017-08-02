@@ -23,9 +23,9 @@ public class StaffService {
 	}
 	
 	/* Calls the insert method of the DAO */
-	public boolean registerStaff(Staff staff) {
-		return StaffDaoJdbc.getStaffDaoJdbc().insert(staff);
-	}
+	//public boolean registerStaff(Staff staff) {
+	//	return StaffDaoJdbc.getStaffDaoJdbc().insert(staff);
+	//}
 	
 	/* Calls the insert method that uses stored procedure in DAO */
 	public boolean registerStaffSecure(Staff staff) {

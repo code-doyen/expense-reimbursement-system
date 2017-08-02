@@ -23,9 +23,9 @@ public class ReimbursementService {
 	}
 	
 	/* Calls the insert method of the DAO */
-	public boolean registerReimbursement(Reimbursement reimbursement) {
-		return ReimbursementDaoJdbc.getReimbursementDaoJdbc().insert(reimbursement);
-	}
+//	public boolean registerReimbursement(Reimbursement reimbursement) {
+//		return ReimbursementDaoJdbc.getReimbursementDaoJdbc().insert(reimbursement);
+//	}
 	
 	/* Calls the insert method that uses stored procedure in DAO */
 	public boolean registerReimbursementSecure(Reimbursement reimbursement) {

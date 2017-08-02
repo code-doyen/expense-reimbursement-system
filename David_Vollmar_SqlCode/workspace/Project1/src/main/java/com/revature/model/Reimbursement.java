@@ -5,162 +5,156 @@ import java.awt.Image;
 public class Reimbursement {
 	private int id;
 	private int staff_id;
+	private String fullname;
+	private String manager;
 	private int amount;
 	private int pending;
 	private String description;
 	private String date_submitted;
 	private String date_approved;
 	private String approve_by;
-	private String position;
 	private String image; // needs changed to image object
-	private int number
-	create table reimbursement(
-		    reimbursement_id number not null,--pk
-		    reimbursement_staff_id number not null,
-		    reimbursement_amount number not null,
-		    reimbursement_pending number not null, --fk?number
-		    reimbursement_description varchar2(100) not null,
-		    reimbursement_date_submitted date not null,
-		    reimbursement_date_approved date,  --approval date can be blank 
-		    reimbursement_approve_by number, --fk 
-		    reimbursement_image blob, --image can be blank
-		    reimbursement_type number not null, --fk
-    create table reimbursement_status(
-    	    reimbursement_status_id number not null,
-    	    reimbursement_status_desc varchar2(50),
-    	    constraint reimbursement_status_id_pk primary key(reimbursement_status_id)
-    	);
-
-	create table reimbursement_type(
-	    reimbursement_type_id number not null,
-	    reimbursement_type_description varchar2(100),
-	    constraint reimbursement_type_id_pk primary key(reimbursement_type_id)
-	);
-
-	//staff_id, staff_username, staff_password, staff_rank, staff_first_name, staff_last_name, staff_phone, staff_email, rank_description
+	private String position;
+	private String status;
+	private String type;
+	
 	public Reimbursement() {
-		this.id =0;
-		this.username = "";
-		this.password = "";
-		this.rank = 0;
-		this.firstName = "";
-		this.lastName = "";
-		this.phone = "";
-		this.email = "";
+		this.id = 0;
+		this.staff_id = 0;
+		this.fullname = "";
+		this.manager = "";
+		this.amount = 0;
+		this.pending = 0;
+		this.description = "";
+		this.date_submitted = "";
+		this.date_approved = "";
+		this.approve_by = "";
+		this.image = "";
 		this.position = "";
+		this.status = "";
+		this.type = "";
 	}
 
-	public Reimbursement(int id) {
-		this();
+	public Reimbursement(int id, int staff_id, int amount, int pending, String description, String date_submitted,
+			String date_approved, String approve_by, String image, String position, String status, String type) {
 		this.id = id;
+		this.staff_id = staff_id;
+		this.amount = amount;
+		this.pending = pending;
+		this.description = description;
+		this.date_submitted = date_submitted;
+		this.date_approved = date_approved;
+		this.approve_by = approve_by;
+		this.image = image;
+		this.position = position;
+		this.status = status;
+		this.type = type;
 	}
 	
-	public Reimbursement(String username, String password) {
-		this();
-		this.username = username;
-		this.password = password;
-	}
-	//staff_username varchar2, password varchar2, staff_rank number, staff_first_name varchar2, staff_last_name varchar2, staff_phone varchar2, staff_email varchar2, staff_position varchar2
-	public Reimbursement(int id, String username, String password, int rank, String firstName, String lastName, String phone, String email, String position) {
-		this.id = id;
-		this.username = username;
-		this.password = password;
-		this.rank = rank;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.phone = phone;
-		this.email = email;
-		this.position = position;
-	}
-	
-	public Reimbursement(String username, String password, int rank, String firstName, String lastName, String phone, String email, String position) {
-		this.username = username;
-		this.password = password;
-		this.rank = rank;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.phone = phone;
-		this.email = email;
-		this.position = position;
+//	result.getInt("reimbursement_id"),
+//	result.getString("reimbursement_staff_requestee"),
+//	result.getInt("reimbursement_amount"),
+//	result.getString("reimbursement_description"),
+//	result.getString("reimbursement_date_submitted"),
+//	result.getString("reimbursement_date_approved"),
+//	result.getString("reimbursement_approve_by"),
+//	result.getString("reimbursement_status"),
+//	result.getString("reimbursement_type_description")
+	public Reimbursement(int reimbursement_id, String reimbursement_staff_requestee, int reimbursement_amount,
+			String reimbursement_description, String reimbursement_date_submitted, String reimbursement_date_approved, 
+			String reimbursement_approve_by, String reimbursement_status, String reimbursement_type_description) {
+		super();
+		this.id = reimbursement_id;
+		this.fullname = reimbursement_staff_requestee;
+		this.amount = reimbursement_amount;
+		//this.pending = pending;
+		this.description = reimbursement_description;
+		this.date_submitted = reimbursement_date_submitted;
+		this.date_approved = reimbursement_date_approved;
+		this.approve_by = reimbursement_approve_by;
+		//this.image = image;
+		//this.position = position;
+		this.status = reimbursement_status;
+		this.type = reimbursement_type_description;
 	}
 	public int getId() {
 		return id;
 	}
-	
 	public void setId(int id) {
 		this.id = id;
 	}
-	
-	public String getFirstName() {
-		return firstName;
+	public int getStaff_id() {
+		return staff_id;
 	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public void setStaff_id(int staff_id) {
+		this.staff_id = staff_id;
 	}
-
-	public String getLastName() {
-		return lastName;
+	public int getAmount() {
+		return amount;
 	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setAmount(int amount) {
+		this.amount = amount;
 	}
-
-	public String getUsername() {
-		return username;
+	public int getPending() {
+		return pending;
 	}
-
-	public void setUsername(String username) {
-		this.username = username;
+	public void setPending(int pending) {
+		this.pending = pending;
 	}
-
-	public String getPassword() {
-		return password;
+	public String getDescription() {
+		return description;
 	}
-
-	public void setPassword(String password) {
-		this.password = password;
+	public void setDescription(String description) {
+		this.description = description;
 	}
-	
-	public int getRank() {
-		return rank;
+	public String getDate_submitted() {
+		return date_submitted;
 	}
-
-	public void setRank(int rank) {
-		this.rank = rank;
+	public void setDate_submitted(String date_submitted) {
+		this.date_submitted = date_submitted;
 	}
-
-	public String getPhone() {
-		return phone;
+	public String getDate_approved() {
+		return date_approved;
 	}
-
-	public void setPhone(String phone) {
-		this.phone = phone;
+	public void setDate_approved(String date_approved) {
+		this.date_approved = date_approved;
 	}
-
-	public String getEmail() {
-		return email;
+	public String getApprove_by() {
+		return approve_by;
 	}
-
-	public void setEmail(String email) {
-		this.email = email;
+	public void setApprove_by(String approve_by) {
+		this.approve_by = approve_by;
 	}
-
+	public String getImage() {
+		return image;
+	}
+	public void setImage(String image) {
+		this.image = image;
+	}
 	public String getPosition() {
 		return position;
 	}
-
 	public void setPosition(String position) {
 		this.position = position;
 	}
-
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
 	@Override
 	public String toString() {
-		return "Reimbursement [id=" + id + ", username=" + username + ", password=" + password + ", rank=" + rank
-				+ ", firstName=" + firstName + ", lastName=" + lastName + ", phone=" + phone + ", email=" + email
-				+ ", position=" + position + "]";
+		return "Reimbursement [id=" + id + ", staff_id=" + staff_id + ", amount=" + amount + ", pending=" + pending
+				+ ", description=" + description + ", date_submitted=" + date_submitted + ", date_approved="
+				+ date_approved + ", approve_by=" + approve_by + ", image=" + image + ", position=" + position
+				+ ", status=" + status + ", type=" + type + "]";
 	}
-
-	
+		
 }

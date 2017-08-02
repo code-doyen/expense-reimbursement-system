@@ -30,30 +30,6 @@ public class ReimbursementDaoJdbc implements ReimbursementDao {
 		return reimbursementDaoJdbc;
 	}
 	
-	/* Regular insert statement for reimbursement */
-	@Override
-	public boolean insert(Reimbursement reimbursement) {
-		try(Connection connection = ConnectionUtil.getConnection()) {
-			int statementIndex = 0;
-			String command = "INSERT INTO reimbursement VALUES(NULL,?,?,?,?)";
-
-			PreparedStatement statement = connection.prepareStatement(command);
-
-			//Set attributes to be inserted
-			statement.setString(++statementIndex, reimbursement.getFirstName().toUpperCase());
-			statement.setString(++statementIndex, reimbursement.getLastName().toUpperCase());
-			statement.setString(++statementIndex, reimbursement.getUsername().toLowerCase());
-			statement.setString(++statementIndex, reimbursement.getPassword());
-			
-
-			if(statement.executeUpdate() > 0) {
-				return true;
-			}
-		} catch (SQLException e) {
-			LogUtil.logger.warn("Exception creating a new reimbursement", e);
-		}
-		return false;
-	}
 
 	/* Insert a reimbursement using the stored procedure we created */
 	@Override
@@ -62,21 +38,18 @@ public class ReimbursementDaoJdbc implements ReimbursementDao {
 			int statementIndex = 0;
 			
 			//Pay attention to this syntax
-			//insert_reimbursement('user', 'pass', 5, 'david', 'vollmar', null || phone, 'vollmad@bgsu.edu', 'Pro')
-			String command = "{call insert_reimbursement(?,?,?,?,?,?,?,?)}";
+			//--exec insert_reimbursement(staff_id, amount, description, image, 'type desc');
+			String command = "{call insert_reimbursement(?,?,?,?,?)}";
 			
 			//Notice the CallableStatement
 			CallableStatement statement = connection.prepareCall(command);
 			
 			//Set attributes to be inserted
-			statement.setString(++statementIndex, reimbursement.getUsername().toLowerCase());
-			statement.setString(++statementIndex, reimbursement.getPassword());
-			statement.setInt(++statementIndex, reimbursement.getRank());
-			statement.setString(++statementIndex, reimbursement.getFirstName());
-			statement.setString(++statementIndex, reimbursement.getFirstName().toUpperCase());
-			statement.setString(++statementIndex, reimbursement.getPhone());
-			statement.setString(++statementIndex, reimbursement.getEmail());
-			statement.setString(++statementIndex, reimbursement.getPosition().toUpperCase());
+			statement.setInt(++statementIndex, reimbursement.getStaff_id());
+			statement.setInt(++statementIndex, reimbursement.getAmount());
+			statement.setString(++statementIndex, reimbursement.getDescription().toUpperCase());
+			statement.setString(++statementIndex, reimbursement.getImage());
+			statement.setString(++statementIndex, reimbursement.getType().toUpperCase());
 			
 			if(statement.executeUpdate() > 0) {
 				return true;
@@ -92,23 +65,30 @@ public class ReimbursementDaoJdbc implements ReimbursementDao {
 	public Reimbursement select(Reimbursement reimbursement) {
 		try(Connection connection = ConnectionUtil.getConnection()) {
 			int statementIndex = 0;
-			String command = "select reimbursement_id, reimbursement_username, reimbursement_password, reimbursement_rank, reimbursement_first_name, reimbursement_last_name, reimbursement_phone, reimbursement_email, rank_description as staff_position from staff left join staff_rank on staff_rank = rank_id where staff_username = ?";
+			String command = "select reimbursement_id, (staff_first_name || ' ' || staff_last_name) as reimbursement_staff_requestee, reimbursement_amount, reimbursement_description, "
+					+ "reimbursement_date_submitted, reimbursement_date_approved, reimbursement_approve_by, reimbursement_status_desc as reimbursement_status, reimbursement_type_description as reimbursement_type "
+					+ "from "
+					+ "(select reimbursement_id, reimbursement_staff_id, reimbursement_amount, reimbursement_description, reimbursement_date_submitted, reimbursement_date_approved, (staff_first_name || ' ' || staff_last_name) as reimbursement_approve_by, "
+					+ "reimbursement_status_desc, reimbursement_type_description from reimbursement "
+					+ "left join reimbursement_type on reimbursement_type = reimbursement_type_id left join reimbursement_status on reimbursement_pending = reimbursement_status_id"
+					+ "left join staff on staff_id = reimbursement_approve_by where reimbursement_status_desc = 'PENDING')"
+					+ "left join staff on staff_id = reimbursement_staff_id where reimbursement_status_desc = 'PENDING' and reimbursement_staff_id = ?;";
 			PreparedStatement statement = connection.prepareStatement(command);
-			statement.setString(++statementIndex, reimbursement.getUsername());
+			statement.setInt(++statementIndex, reimbursement.getStaff_id());
 			ResultSet result = statement.executeQuery();
 
 			while(result.next()) {
 				
 				return new Reimbursement(
 						result.getInt("reimbursement_id"),
-						result.getString("reimbursement_username"),
-						result.getString("reimbursement_password"),
-						result.getInt("reimbursement_rank"),
-						result.getString("reimbursement_first_name"),
-						result.getString("reimbursement_last_name"),
-						result.getString("reimbursement_phone"),
-						result.getString("reimbursement_email"),
-						result.getString("reimbursement_position")
+						result.getString("reimbursement_staff_requestee"),
+						result.getInt("reimbursement_amount"),
+						result.getString("reimbursement_description"),
+						result.getString("reimbursement_date_submitted"),
+						result.getString("reimbursement_date_approved"),
+						result.getString("reimbursement_approve_by"),
+						result.getString("reimbursement_status"),
+						result.getString("reimbursement_type_description")
 						);
 			}
 		} catch (SQLException e) {
@@ -121,21 +101,28 @@ public class ReimbursementDaoJdbc implements ReimbursementDao {
 	public List<Reimbursement> selectAll() {
 		try(Connection connection = ConnectionUtil.getConnection()) {
 			
-			String command = "select staff_id, staff_username, staff_password, staff_rank, staff_first_name, staff_last_name, staff_phone, staff_email, rank_description as staff_position from staff left join staff_rank on staff_rank = rank_id";
+			String command = "select reimbursement_id, (staff_first_name || ' ' || staff_last_name) as reimbursement_staff_requestee, reimbursement_amount, reimbursement_description, "
+					+ "reimbursement_date_submitted, reimbursement_date_approved, reimbursement_approve_by, reimbursement_status_desc as reimbursement_status, reimbursement_type_description as reimbursement_type "
+					+ "from "
+					+ "(select reimbursement_id, reimbursement_staff_id, reimbursement_amount, reimbursement_description, reimbursement_date_submitted, reimbursement_date_approved, (staff_first_name || ' ' || staff_last_name) as reimbursement_approve_by, "
+					+ "reimbursement_status_desc, reimbursement_type_description from reimbursement "
+					+ "left join reimbursement_type on reimbursement_type = reimbursement_type_id left join reimbursement_status on reimbursement_pending = reimbursement_status_id "
+					+ "left join staff on staff_id = reimbursement_approve_by where reimbursement_status_desc = 'PENDING') "
+					+ "left join staff on staff_id = reimbursement_staff_id where reimbursement_status_desc = 'PENDING'";
 			PreparedStatement statement = connection.prepareStatement(command);
 			ResultSet result = statement.executeQuery();
 			List<Reimbursement> reimbursementList = new ArrayList<>();
 			while(result.next()) {
 				reimbursementList.add(new Reimbursement(
-						result.getInt("staff_id"),
-						result.getString("staff_username"),
-						result.getString("staff_password"),
-						result.getInt("staff_rank"),
-						result.getString("staff_first_name"),
-						result.getString("staff_last_name"),
-						result.getString("staff_phone"),
-						result.getString("staff_email"),
-						result.getString("staff_position")
+						result.getInt("reimbursement_id"),
+						result.getString("reimbursement_staff_requestee"),
+						result.getInt("reimbursement_amount"),
+						result.getString("reimbursement_description"),
+						result.getString("reimbursement_date_submitted"),
+						result.getString("reimbursement_date_approved"),
+						result.getString("reimbursement_approve_by"),
+						result.getString("reimbursement_status"),
+						result.getString("reimbursement_type")
 						));
 			}
 

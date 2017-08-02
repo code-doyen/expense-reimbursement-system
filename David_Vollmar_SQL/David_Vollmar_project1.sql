@@ -8,7 +8,8 @@ grant dba to David_Vollmar_project1 with admin option;
  drop sequence reimbursement_seq;
  drop sequence reimbursement_type_seq;
  drop sequence reimbursement_status_seq;
-
+ drop sequence reimbursement_type_id_seq;
+  
 --drop current tables
  drop table reimbursement;
  drop table reimbursement_status;
@@ -143,6 +144,9 @@ create sequence reimbursement_seq
 create sequence reimbursement_type_seq
   start with 1
   increment by 1;
+create sequence reimbursement_type_id_seq
+  start with 1
+  increment by 1;
 create sequence reimbursement_status_seq
   start with 1
   increment by 1;
@@ -180,130 +184,128 @@ begin
   if :new.reimbursement_id is null then
     select reimbursement_seq.nextval into :new.reimbursement_id from dual;
   end if; 
+  if :new.reimbursement_type is null then
+    select reimbursement_type_id_seq.nextval into :new.reimbursement_type from dual;
+  end if;
 end;
 /
 
 create or replace procedure insert_reimbursement(
-reimbursement_staff_id number, reimbursement_amount number, reimbursement_pending number, 
-reimbursement_description varchar2, reimbursement_date_submitted date, reimbursement_date_approved date,
-reimbursement_approve_by number, reimbursement_image blob, reimbursement_type number,
-reimbursement_type_desc varchar2, reimbursement_status_desc varchar2 )
+reimbursement_staff_id number, reimbursement_amount number,  
+reimbursement_description varchar2, reimbursement_image blob, reimbursement_type_desc varchar2)
 as
 begin
                                  --typeid, description
   insert into reimbursement_type values(null, reimbursement_type_desc); 
                                     --statusid, status desc
-  insert into reimbursement_status values(null, reimbursement_status_desc);
+  insert into reimbursement_status values(null, 'PENDING');
 
-  insert into reimbursement values(null, reimbursement_staff_id, reimbursement_amount, reimbursement_pending, 
-  reimbursement_description, reimbursement_date_submitted, reimbursement_date_approved,
-  reimbursement_approve_by, reimbursement_image, reimbursement_type);
+  insert into reimbursement values(null, reimbursement_staff_id, reimbursement_amount, 1, 
+  reimbursement_description, to_date(sysdate, 'yyyy-mm-dd hh24:mi:ss'), null,
+  null, reimbursement_image, null);
   commit;
 end;
 /
-
-
-
+--exec insert_staff(user, pass, rank #, name, last, phone|null, email, position);
+exec insert_staff('username', 'password', 2, 'elena', 'vollmar', null, 'elena@bgsu.edu', 'Manager');
+exec insert_staff('david', 'vollmar', 1, 'david', 'vollmar', null, 'vollmad@bgsu.edu', 'Pro');
+--exec insert_reimbursement(staff_id,  amount, description, image, 'type desc');
+exec insert_reimbursement(1,  212, 'bacon it', null, 'type desc');
+select * from reimbursement;
 
 commit;
 exit;
 
---insertion order
---staff_username varchar2, password varchar2, staff_rank number, staff_first_name varchar2, staff_last_name varchar2, staff_phone varchar2, staff_email varchar2, staff_position varchar2)
-exec insert_staff('david', 'vollmar', 1, 'david', 'vollmar', null, 'vollmad@bgsu.edu', 'Pro');
-exec insert_staff('username', 'password', 2, 'elena', 'vollmar', null, 'elena@bgsu.edu', 'Manager');
---reimbursement_staff_id number, reimbursement_amount number, reimbursement_pending number, 
---reimbursement_description varchar2, reimbursement_date_submitted date, reimbursement_date_approved date,
---reimbursement_approve_by number, reimbursement_image blob, reimbursement_type number,
---reimbursement_type_desc varchar2, reimbursement_status_desc varchar2 
-exec insert_reimbursement(1,  212, 1, 'test', TO_DATE('2009-1-1 00:00:00','yyyy-mm-dd hh24:mi:ss'), null, null, null, 1, 'type desc', 'PENDING');
-exec insert_reimbursement(1,  212, 2, 'test', TO_DATE('2009-1-1 00:00:00','yyyy-mm-dd hh24:mi:ss'), null, null, null, 1, 'type desc', 'RESOLVED');
-exec insert_reimbursement(2,  212, 1, 'test', TO_DATE('2009-1-1 00:00:00','yyyy-mm-dd hh24:mi:ss'), null, null, null, 1, 'type desc', 'PENDING');
-exec insert_reimbursement(2,  212, 2, 'test', TO_DATE('2009-1-1 00:00:00','yyyy-mm-dd hh24:mi:ss'), null, null, null, 1, 'type desc', 'RESOLVED');
+---updates
+---
+
+update REIMBURSEMENT set REIMBURSEMENT_APPROVE_BY = 2 where REIMBURSEMENT_ID =2;
+update REIMBURSEMENT set REIMBURSEMENT_APPROVE_BY = 1 where REIMBURSEMENT_ID =4;
 -- table views
  select * from reimbursement_type;
  select * from reimbursement_status;
  select * from reimbursement;
- 
- --select all reimbursments
- select reimbursement_id, reimbursement_staff_id, reimbursement_amount, reimbursement_description,
-        reimbursement_date_submitted, reimbursement_date_approved, reimbursement_approve_by, reimbursement_status_desc as reimbursement_status, 
-        reimbursement_type_description as reimbursement_type from reimbursement 
-    left join reimbursement_status on reimbursement_pending = reimbursement_status_id
-    left join reimbursement_type on reimbursement_type = reimbursement_type_id;
--- staff select all reimbursments
-select reimbursement_id, reimbursement_staff_id, reimbursement_amount, reimbursement_description,
-        reimbursement_date_submitted, reimbursement_date_approved, reimbursement_approve_by, reimbursement_status_desc as reimbursement_status, 
-        reimbursement_type_description as reimbursement_type from reimbursement 
-    left join reimbursement_status on reimbursement_pending = reimbursement_status_id
-    left join reimbursement_type on reimbursement_type = reimbursement_type_id where reimbursement_staff_id = 1;
--- staff select all RESOLVED reimbursments
-select reimbursement_id, reimbursement_staff_id, reimbursement_amount, reimbursement_description,
-        reimbursement_date_submitted, reimbursement_date_approved, reimbursement_approve_by, reimbursement_status_desc as reimbursement_status, 
-        reimbursement_type_description as reimbursement_type from reimbursement 
-    left join reimbursement_status on reimbursement_pending = reimbursement_status_id
-    left join reimbursement_type on reimbursement_type = reimbursement_type_id where reimbursement_status_desc = 'RESOLVED' and reimbursement_staff_id = 1; 
-    
--- staff select all PENDING reimbursments
-select reimbursement_id, reimbursement_staff_id, reimbursement_amount, reimbursement_description,
-        reimbursement_date_submitted, reimbursement_date_approved, reimbursement_approve_by, reimbursement_status_desc as reimbursement_status, 
-        reimbursement_type_description as reimbursement_type from reimbursement 
-    left join reimbursement_status on reimbursement_pending = reimbursement_status_id
-    left join reimbursement_type on reimbursement_type = reimbursement_type_id where reimbursement_status_desc = 'PENDING' and reimbursement_staff_id = 1;
--- a staff member can view their information    
-select staff_username, staff_first_name, staff_last_name, staff_phone, staff_email, rank_description as staff_position from staff left join staff_rank on staff_rank = rank_id where staff_username = 'david';
+SELECT SESSIONTIMEZONE, CURRENT_DATE FROM DUAL;
 
---a staff member can update their profile
-    --update_staff(username, password, first_name, last_name, phone, email)
-    update_staff('david', '1234', 'Wow', 'Cow', '90', 'w@cat.com');
+---testing unit----
 
--- manager approve/deny pending reimbursement requests
-select reimbursement_id, reimbursement_staff_id, reimbursement_amount, reimbursement_description,
-    reimbursement_date_submitted, reimbursement_date_approved, reimbursement_approve_by, reimbursement_status_desc as reimbursement_status, 
-    reimbursement_type_description as reimbursement_type from reimbursement 
-    left join reimbursement_status on reimbursement_pending = reimbursement_status_id
-    left join reimbursement_type on reimbursement_type = reimbursement_type_id where reimbursement_status_desc = 'PENDING' and reimbursement_staff_id = 1;
+----An Employee can submit a reimbursement request
+	    exec insert_reimbursement(1,  212, 1, 'test', TO_DATE('2009-1-1 00:00:00','yyyy-mm-dd hh24:mi:ss'), null, null, null, 1, 'type desc', 'status desc');
+----An Employee can upload an image of his/her receipt as part of the reimbursement request (hard / do last)
+	   -- update--exec insert_reimbursement(1,  212, 1, 'test', TO_DATE('2009-1-1 00:00:00','yyyy-mm-dd hh24:mi:ss'), null, null, null, 1, 'type desc', 'status desc');
 
---A Manager can view all resolved requests from all employees and see which manager resolved it
-select reimbursement_id, (staff_first_name || ' ' || staff_last_name) as reimbursement_staff_requestee, reimbursement_amount, reimbursement_description,
-    reimbursement_date_submitted, reimbursement_date_approved, reimbursement_approve_by, reimbursement_status_desc as reimbursement_status, 
-    reimbursement_type_description as reimbursement_type 
-    from 
-    (select reimbursement_id, reimbursement_staff_id, reimbursement_amount, reimbursement_description,
-    reimbursement_date_submitted, reimbursement_date_approved, (staff_first_name || ' ' || staff_last_name) as reimbursement_approve_by, reimbursement_status_desc, 
-    reimbursement_type_description from reimbursement
-    left join reimbursement_type on reimbursement_type = reimbursement_type_id   
-    left join reimbursement_status on reimbursement_pending = reimbursement_status_id
-    left join staff on staff_id = reimbursement_approve_by where reimbursement_status_desc = 'RESOLVED')
-    left join staff on staff_id = reimbursement_staff_id where reimbursement_status_desc = 'RESOLVED'; -- and reimbursement_approve_by <> null;
---A Manager can view all pending requests from all employees
-select reimbursement_id, (staff_first_name || ' ' || staff_last_name) as reimbursement_staff_requestee, reimbursement_amount, reimbursement_description,
-    reimbursement_date_submitted, reimbursement_date_approved, reimbursement_approve_by, reimbursement_status_desc as reimbursement_status, 
-    reimbursement_type_description as reimbursement_type 
-    from 
-    (select reimbursement_id, reimbursement_staff_id, reimbursement_amount, reimbursement_description,
-    reimbursement_date_submitted, reimbursement_date_approved, (staff_first_name || ' ' || staff_last_name) as reimbursement_approve_by, reimbursement_status_desc, 
-    reimbursement_type_description from reimbursement
-    left join reimbursement_type on reimbursement_type = reimbursement_type_id   
-    left join reimbursement_status on reimbursement_pending = reimbursement_status_id
-    left join staff on staff_id = reimbursement_approve_by where reimbursement_staff_id = 1)
-    left join staff on staff_id = reimbursement_staff_id where reimbursement_staff_id = 1; -- and reimbursement_approve_by <> null;
-   
---A Manager can view all Employees   
-   
-   
-   
-update REIMBURSEMENT set REIMBURSEMENT_APPROVE_BY = 2 where REIMBURSEMENT_ID =2;
-update REIMBURSEMENT set REIMBURSEMENT_APPROVE_BY = 1 where REIMBURSEMENT_ID =4;
-select * from  REIMBURSEMENT;
-select (staff_first_name || ' ' || staff_last_name) as reimbursement_staff_requestee from staff;
-select * from staff;
---get all staff info
-select staff_id, staff_username, staff_password, staff_rank, staff_first_name, staff_last_name, staff_phone, staff_email, rank_description as staff_position from staff left join staff_rank on staff_rank = rank_id;
---value removal sequence
- delete from reimbursement_type where reimbursement_type_id=1;
- delete from staff where staff_id=1;
- delete from staff_rank where rank_id=1;
- delete from reimbursement_status where reimbursement_status_id=1;
- delete from reimbursement where reimbursement_id=1;
-    
+----An Employee can view their pending reimbursement requests
+		select reimbursement_id, (staff_first_name || ' ' || staff_last_name) as reimbursement_staff_requestee, reimbursement_amount, reimbursement_description,
+		reimbursement_date_submitted, reimbursement_date_approved, reimbursement_approve_by, reimbursement_status_desc as reimbursement_status, 
+		reimbursement_type_description as reimbursement_type 
+		from 
+		(select reimbursement_id, reimbursement_staff_id, reimbursement_amount, reimbursement_description,
+		reimbursement_date_submitted, reimbursement_date_approved, (staff_first_name || ' ' || staff_last_name) as reimbursement_approve_by, reimbursement_status_desc, 
+		reimbursement_type_description from reimbursement
+		left join reimbursement_type on reimbursement_type = reimbursement_type_id   
+		left join reimbursement_status on reimbursement_pending = reimbursement_status_id
+		left join staff on staff_id = reimbursement_approve_by where reimbursement_status_desc = 'PENDING')
+		left join staff on staff_id = reimbursement_staff_id where reimbursement_status_desc = 'PENDING' and reimbursement_staff_id = 2;
+----An Employee can view their resolved reimbursement requests
+		select reimbursement_id, (staff_first_name || ' ' || staff_last_name) as reimbursement_staff_requestee, reimbursement_amount, reimbursement_description,
+		reimbursement_date_submitted, reimbursement_date_approved, reimbursement_approve_by, reimbursement_status_desc as reimbursement_status, 
+		reimbursement_type_description as reimbursement_type 
+		from 
+		(select reimbursement_id, reimbursement_staff_id, reimbursement_amount, reimbursement_description,
+		reimbursement_date_submitted, reimbursement_date_approved, (staff_first_name || ' ' || staff_last_name) as reimbursement_approve_by, reimbursement_status_desc, 
+		reimbursement_type_description from reimbursement
+		left join reimbursement_type on reimbursement_type = reimbursement_type_id   
+		left join reimbursement_status on reimbursement_pending = reimbursement_status_id
+		left join staff on staff_id = reimbursement_approve_by where reimbursement_status_desc = 'RESOLVED')
+		left join staff on staff_id = reimbursement_staff_id where reimbursement_status_desc = 'RESOLVED' and reimbursement_staff_id = 2; 
+
+----An Employee can view their information
+		select staff_username, staff_first_name, staff_last_name, staff_phone, staff_email, rank_description as staff_position from staff left join staff_rank on staff_rank = rank_id where staff_username = 'david';
+----An Employee can update their information
+		update_staff('user', 'password', 'firs_name', 'last_name', 'phone', 'email');
+----An Employee receives an email when one of their reimbursement requests is resolved (optional)
+
+
+--A Manager can view the Manager Homepage
+----A Manager can approve/deny pending reimbursement requests
+----A Manager can view all pending requests from all employees
+		select reimbursement_id, (staff_first_name || ' ' || staff_last_name) as reimbursement_staff_requestee, reimbursement_amount, reimbursement_description,
+		reimbursement_date_submitted, reimbursement_date_approved, reimbursement_approve_by, reimbursement_status_desc as reimbursement_status, 
+		reimbursement_type_description as reimbursement_type 
+		from 
+		(select reimbursement_id, reimbursement_staff_id, reimbursement_amount, reimbursement_description,
+		reimbursement_date_submitted, reimbursement_date_approved, (staff_first_name || ' ' || staff_last_name) as reimbursement_approve_by, reimbursement_status_desc, 
+		reimbursement_type_description from reimbursement
+		left join reimbursement_type on reimbursement_type = reimbursement_type_id   
+		left join reimbursement_status on reimbursement_pending = reimbursement_status_id
+		left join staff on staff_id = reimbursement_approve_by where reimbursement_status_desc = 'PENDING')
+		left join staff on staff_id = reimbursement_staff_id where reimbursement_status_desc = 'PENDING'; -- and reimbursement_approve_by <> null;
+	
+----A Manager can view all resolved requests from all employees and see which manager resolved it
+		select reimbursement_id, (staff_first_name || ' ' || staff_last_name) as reimbursement_staff_requestee, reimbursement_amount, reimbursement_description,
+		reimbursement_date_submitted, reimbursement_date_approved, reimbursement_approve_by, reimbursement_status_desc as reimbursement_status, 
+		reimbursement_type_description as reimbursement_type 
+		from 
+		(select reimbursement_id, reimbursement_staff_id, reimbursement_amount, reimbursement_description,
+		reimbursement_date_submitted, reimbursement_date_approved, (staff_first_name || ' ' || staff_last_name) as reimbursement_approve_by, reimbursement_status_desc, 
+		reimbursement_type_description from reimbursement
+		left join reimbursement_type on reimbursement_type = reimbursement_type_id   
+		left join reimbursement_status on reimbursement_pending = reimbursement_status_id
+		left join staff on staff_id = reimbursement_approve_by where reimbursement_status_desc = 'RESOLVED')
+		left join staff on staff_id = reimbursement_staff_id where reimbursement_status_desc = 'RESOLVED'; -- and reimbursement_approve_by <> null;
+	
+----A Manager can view reimbursement requests from a single Employee
+		select reimbursement_id, (staff_first_name || ' ' || staff_last_name) as reimbursement_staff_requestee, reimbursement_amount, reimbursement_description,
+		reimbursement_date_submitted, reimbursement_date_approved, reimbursement_approve_by, reimbursement_status_desc as reimbursement_status, 
+		reimbursement_type_description as reimbursement_type 
+		from 
+		(select reimbursement_id, reimbursement_staff_id, reimbursement_amount, reimbursement_description,
+		reimbursement_date_submitted, reimbursement_date_approved, (staff_first_name || ' ' || staff_last_name) as reimbursement_approve_by, reimbursement_status_desc, 
+		reimbursement_type_description from reimbursement
+		left join reimbursement_type on reimbursement_type = reimbursement_type_id   
+		left join reimbursement_status on reimbursement_pending = reimbursement_status_id
+		left join staff on staff_id = reimbursement_approve_by where reimbursement_staff_id = 1)
+		left join staff on staff_id = reimbursement_staff_id where reimbursement_staff_id = 1; -- and reimbursement_approve_by <> null;
+
+----A Manager can view all Employees
+		select (staff_first_name || ' ' || staff_last_name) as staff_member, staff_phone, staff_email from staff;   

@@ -31,29 +31,29 @@ public class StaffDaoJdbc implements StaffDao {
 	}
 	
 	/* Regular insert statement for staff */
-	@Override
-	public boolean insert(Staff staff) {
-		try(Connection connection = ConnectionUtil.getConnection()) {
-			int statementIndex = 0;
-			String command = "INSERT INTO staff VALUES(NULL,?,?,?,?)";
-
-			PreparedStatement statement = connection.prepareStatement(command);
-
-			//Set attributes to be inserted
-			statement.setString(++statementIndex, staff.getFirstName().toUpperCase());
-			statement.setString(++statementIndex, staff.getLastName().toUpperCase());
-			statement.setString(++statementIndex, staff.getUsername().toLowerCase());
-			statement.setString(++statementIndex, staff.getPassword());
-			
-
-			if(statement.executeUpdate() > 0) {
-				return true;
-			}
-		} catch (SQLException e) {
-			LogUtil.logger.warn("Exception creating a new staff", e);
-		}
-		return false;
-	}
+//	@Override
+//	public boolean insert(Staff staff) {
+//		try(Connection connection = ConnectionUtil.getConnection()) {
+//			int statementIndex = 0;
+//			String command = "INSERT INTO staff VALUES(NULL,?,?,?,?)";
+//
+//			PreparedStatement statement = connection.prepareStatement(command);
+//
+//			//Set attributes to be inserted
+//			statement.setString(++statementIndex, staff.getFirstName().toUpperCase());
+//			statement.setString(++statementIndex, staff.getLastName().toUpperCase());
+//			statement.setString(++statementIndex, staff.getUsername().toLowerCase());
+//			statement.setString(++statementIndex, staff.getPassword());
+//			
+//
+//			if(statement.executeUpdate() > 0) {
+//				return true;
+//			}
+//		} catch (SQLException e) {
+//			LogUtil.logger.warn("Exception creating a new staff", e);
+//		}
+//		return false;
+//	}
 
 	/* Insert a staff using the stored procedure we created */
 	@Override
