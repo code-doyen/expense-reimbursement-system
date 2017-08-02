@@ -1,5 +1,6 @@
 package com.revature.model;
 import java.awt.Image;
+import java.sql.Blob;
 
 /* Main Customer POJO (bean) needed for example */
 public class Reimbursement {
@@ -13,7 +14,7 @@ public class Reimbursement {
 	private String date_submitted;
 	private String date_approved;
 	private String approve_by;
-	private String image; // needs changed to image object
+	private Blob image; // needs changed to image object
 	private String position;
 	private String status;
 	private String type;
@@ -29,14 +30,22 @@ public class Reimbursement {
 		this.date_submitted = "";
 		this.date_approved = "";
 		this.approve_by = "";
-		this.image = "";
+		this.image = null;
 		this.position = "";
 		this.status = "";
 		this.type = "";
 	}
-
+	//--exec insert_reimbursement(staff_id,  amount, description, image, 'type desc');
+	public Reimbursement(int staff_id, int amount, String description, Blob image, String type) {
+		this.staff_id = staff_id;
+		this.amount = amount;
+		this.description = description;
+		this.image = image;
+		this.type = type;
+	}
+	
 	public Reimbursement(int id, int staff_id, int amount, int pending, String description, String date_submitted,
-			String date_approved, String approve_by, String image, String position, String status, String type) {
+			String date_approved, String approve_by, Blob image, String position, String status, String type) {
 		this.id = id;
 		this.staff_id = staff_id;
 		this.amount = amount;
@@ -125,10 +134,10 @@ public class Reimbursement {
 	public void setApprove_by(String approve_by) {
 		this.approve_by = approve_by;
 	}
-	public String getImage() {
+	public Blob getImage() {
 		return image;
 	}
-	public void setImage(String image) {
+	public void setImage(Blob image) {
 		this.image = image;
 	}
 	public String getPosition() {

@@ -230,9 +230,9 @@ SELECT SESSIONTIMEZONE, CURRENT_DATE FROM DUAL;
 ---testing unit----
 
 ----An Employee can submit a reimbursement request
-	    exec insert_reimbursement(1,  212, 1, 'test', TO_DATE('2009-1-1 00:00:00','yyyy-mm-dd hh24:mi:ss'), null, null, null, 1, 'type desc', 'status desc');
+	    exec insert_reimbursement(1,  212, 'bacon it', null, 'type desc');
 ----An Employee can upload an image of his/her receipt as part of the reimbursement request (hard / do last)
-	   -- update--exec insert_reimbursement(1,  212, 1, 'test', TO_DATE('2009-1-1 00:00:00','yyyy-mm-dd hh24:mi:ss'), null, null, null, 1, 'type desc', 'status desc');
+	   -- update--exec insert_reimbursement(1,  212, 'bacon it', null, 'type desc');
 
 ----An Employee can view their pending reimbursement requests
 		select reimbursement_id, (staff_first_name || ' ' || staff_last_name) as reimbursement_staff_requestee, reimbursement_amount, reimbursement_description,

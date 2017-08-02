@@ -48,7 +48,7 @@ public class ReimbursementDaoJdbc implements ReimbursementDao {
 			statement.setInt(++statementIndex, reimbursement.getStaff_id());
 			statement.setInt(++statementIndex, reimbursement.getAmount());
 			statement.setString(++statementIndex, reimbursement.getDescription().toUpperCase());
-			statement.setString(++statementIndex, reimbursement.getImage());
+			statement.setBlob(++statementIndex, reimbursement.getImage());//setBlob(parameterIndex, inputStream)
 			statement.setString(++statementIndex, reimbursement.getType().toUpperCase());
 			
 			if(statement.executeUpdate() > 0) {
