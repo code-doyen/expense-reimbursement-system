@@ -1,28 +1,119 @@
 
-Due 8/04/17
+Skip to content
+Toggle navigation
+ 
+       
+revature_batches / 1707_july05_java
+
+This project
+ 
+
+  
+ 
+ 
+ 
+ 
+Project 
+Repository 
+Registry 
+Issues 0 
+Merge Requests 0 
+Pipelines 
+Wiki 
+Snippets 
+Members 
+Files 
+Commits 
+Branches 
+Tags 
+Contributors 
+Graph 
+Compare 
+Charts 
+Locked Files 
+
+master
+
+ 
+1707_july05_java  projects  ERS Requirements.txt 
+ Find file 
+Blame
+History
+Permalink
+
+Project 1 Requirements pushed. 
+Peter Alagna committed 2 weeks ago 
+752295ff
+
+ ERS Requirements.txt 
+
+1.6 KB 
+ LockEditReplaceDelete 
+1 
+2 
+3 
+4 
+5 
+6 
+7 
+8 
+9 
+10 
+11 
+12 
+13 
+14 
+15 
+16 
+17 
+18 
+19 
+20 
+21 
+22 
+23 
+24 
+25 
+26 
+27 
+28 
+29 
+30 
+31 
+32 
+33 
+34 
+35 
+36 
+37 
+38 
+39 
+40 
+41 
+42 
+43 
+44 
 Expense Reimbursement System (ERS) - Presentation Monday - 08/04/2017
--LOGIN PORTAL PAGE
-	-An Employee can login / -A Manager can login
-	-An Employee can logout / -A Manager can logout
-
-
+-An Employee can login
 -An Employee can view the Employee Homepage
-	-An Employee can submit a reimbursement request
-	-An Employee can upload an image of his/her receipt as part of the reimbursement request (hard / do last)
-	-An Employee can view their pending reimbursement requests
-	-An Employee can view their resolved reimbursement requests
-	-An Employee can view their information
-	-An Employee can update their information
-	-An Employee receives an email when one of their reimbursement requests is resolved (optional)
+-An Employee can logout
+-An Employee can submit a reimbursement request
+-An Employee can upload an image of his/her receipt as part of the reimbursement request (hard / do last)
+-An Employee can view their pending reimbursement requests
+-An Employee can view their resolved reimbursement requests
+-An Employee can view their information
+-An Employee can update their information
+-An Employee receives an email when one of their reimbursement requests is resolved (optional)
 
-
+-A Manager can login
 -A Manager can view the Manager Homepage
-	-A Manager can approve/deny pending reimbursement requests
-	-A Manager can view all pending requests from all employees
-	-A Manager can view images of the receipts from reimbursement requests (hard /do last)
-	-A Manager can view all resolved requests from all employees and see which manager resolved it
-	-A Manager can view all Employees
-	-A Manager can view reimbursement requests from a single Employee
+-A Manager can logout
+-A Manager can approve/deny pending reimbursement requests
+-A Manager can view all pending requests from all employees
+-A Manager can view images of the receipts from reimbursement requests (hard /do last)
+-A Manager can view all resolved requests from all employees and see which manager resolved it
+-A Manager can view all Employees
+-A Manager can view reimbursement requests from a single Employee
 
 ------------------------------------------------------------------
 -A Manager can register an Employee, which sends the Employee an email with their username and temp password (optional)
@@ -42,7 +133,8 @@ Technologies:
 -log4j
 
 Environment:
--not Weblogic use TomCat
+-Weblogic
 -Oracle 11g Database
 -Eclipse/Spring Tools Suite
 -SQL Developer
+
