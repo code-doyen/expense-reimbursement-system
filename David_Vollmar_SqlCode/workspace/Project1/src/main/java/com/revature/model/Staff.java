@@ -11,7 +11,7 @@ public class Staff {
 	private String phone;
 	private String email;
 	private String position;
-	
+	private String fullname;
 	//staff_id, staff_username, staff_password, staff_rank, staff_first_name, staff_last_name, staff_phone, staff_email, rank_description
 	public Staff() {
 		this.id =0;
@@ -23,18 +23,37 @@ public class Staff {
 		this.phone = "";
 		this.email = "";
 		this.position = "";
+		this.fullname = "";
 	}
 
 	public Staff(int id) {
-		this();
 		this.id = id;
 	}
 	
+	public Staff(String user) {
+		this.username = user;
+	}
+	
+	public Staff(String member, String phone, String email) {
+		this.fullname = member;
+		this.phone = phone;
+		this.email = email;
+	}
+	
 	public Staff(String username, String password) {
-		this();
 		this.username = username;
 		this.password = password;
 	}
+	
+	public Staff(String username, String password, String firstName, String lastName, String phone, String email) {
+		this.username = username;
+		this.password = password;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.phone = phone;
+		this.email = email;
+	}
+	
 	//staff_username varchar2, password varchar2, staff_rank number, staff_first_name varchar2, staff_last_name varchar2, staff_phone varchar2, staff_email varchar2, staff_position varchar2
 	public Staff(int id, String username, String password, int rank, String firstName, String lastName, String phone, String email, String position) {
 		this.id = id;
@@ -129,13 +148,24 @@ public class Staff {
 	public void setPosition(String position) {
 		this.position = position;
 	}
+	
+	public String getFullname() {
+		return fullname;
+	}
+
+	public void setFullname(String fullname) {
+		this.fullname = fullname;
+	}
 
 	@Override
 	public String toString() {
 		return "Staff [id=" + id + ", username=" + username + ", password=" + password + ", rank=" + rank
 				+ ", firstName=" + firstName + ", lastName=" + lastName + ", phone=" + phone + ", email=" + email
-				+ ", position=" + position + "]";
+				+ ", position=" + position + ", fullname=" + fullname + "]";
 	}
+
+	
+	
 
 	
 }

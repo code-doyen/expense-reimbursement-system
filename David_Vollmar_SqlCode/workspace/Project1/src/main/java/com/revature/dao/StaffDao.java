@@ -8,8 +8,8 @@ import com.revature.model.Staff;
  * by many types of technologies like JDBC, Hibernate, MongoDB, etc.
  */
 public interface StaffDao {
-	//public boolean insert(Staff staff);
 	public boolean insertProcedure(Staff staff);
+	public boolean updateProcedure(Staff staff);
 	public Staff select(Staff staff);
 	public List<Staff> selectAll();
 	public String getStaffHash(Staff staff);

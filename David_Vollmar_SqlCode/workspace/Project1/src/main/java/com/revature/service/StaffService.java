@@ -32,10 +32,21 @@ public class StaffService {
 		return StaffDaoJdbc.getStaffDaoJdbc().insertProcedure(staff);
 	}
 	
+	/* Calls the insert method that uses stored procedure in DAO */
+	public boolean updateStaffSecure(Staff staff) {
+		return StaffDaoJdbc.getStaffDaoJdbc().updateProcedure(staff);
+	}
+	
+	
 	/* Calls selectAll method of the DAO */
 	public List<Staff> listAllUsers() {
 		return StaffDaoJdbc.getStaffDaoJdbc().selectAll();
 	}
+	
+	public List<Staff> listAllDetails(Staff staff) {
+		return StaffDaoJdbc.getStaffDaoJdbc().selectDetails(staff);
+	}
+	
 	
 	/* Calls select method of the DAO by username and performs login logic */
 	public Staff login(Staff staff) {

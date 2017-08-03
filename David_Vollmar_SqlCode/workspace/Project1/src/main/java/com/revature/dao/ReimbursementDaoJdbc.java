@@ -60,56 +60,24 @@ public class ReimbursementDaoJdbc implements ReimbursementDao {
 		return false;
 	}
 
-	/* Select reimbursement based on his username */
-	@Override
-	public Reimbursement select(Reimbursement reimbursement) {
-		try(Connection connection = ConnectionUtil.getConnection()) {
-			int statementIndex = 0;
-			String command = "select reimbursement_id, (staff_first_name || ' ' || staff_last_name) as reimbursement_staff_requestee, reimbursement_amount, reimbursement_description, "
-					+ "reimbursement_date_submitted, reimbursement_date_approved, reimbursement_approve_by, reimbursement_status_desc as reimbursement_status, reimbursement_type_description as reimbursement_type "
-					+ "from "
-					+ "(select reimbursement_id, reimbursement_staff_id, reimbursement_amount, reimbursement_description, reimbursement_date_submitted, reimbursement_date_approved, (staff_first_name || ' ' || staff_last_name) as reimbursement_approve_by, "
-					+ "reimbursement_status_desc, reimbursement_type_description from reimbursement "
-					+ "left join reimbursement_type on reimbursement_type = reimbursement_type_id left join reimbursement_status on reimbursement_pending = reimbursement_status_id"
-					+ "left join staff on staff_id = reimbursement_approve_by where reimbursement_status_desc = 'PENDING')"
-					+ "left join staff on staff_id = reimbursement_staff_id where reimbursement_status_desc = 'PENDING' and reimbursement_staff_id = ?;";
-			PreparedStatement statement = connection.prepareStatement(command);
-			statement.setInt(++statementIndex, reimbursement.getStaff_id());
-			ResultSet result = statement.executeQuery();
-
-			while(result.next()) {
-				
-				return new Reimbursement(
-						result.getInt("reimbursement_id"),
-						result.getString("reimbursement_staff_requestee"),
-						result.getInt("reimbursement_amount"),
-						result.getString("reimbursement_description"),
-						result.getString("reimbursement_date_submitted"),
-						result.getString("reimbursement_date_approved"),
-						result.getString("reimbursement_approve_by"),
-						result.getString("reimbursement_status"),
-						result.getString("reimbursement_type_description")
-						);
-			}
-		} catch (SQLException e) {
-			LogUtil.logger.warn("Exception selecting a reimbursement", e);
-		}
-		return new Reimbursement();
-	}
 
 	/* Select all reimbursements */
 	public List<Reimbursement> selectAll() {
 		try(Connection connection = ConnectionUtil.getConnection()) {
 			
-			String command = "select reimbursement_id, (staff_first_name || ' ' || staff_last_name) as reimbursement_staff_requestee, reimbursement_amount, reimbursement_description, "
-					+ "reimbursement_date_submitted, reimbursement_date_approved, reimbursement_approve_by, reimbursement_status_desc as reimbursement_status, reimbursement_type_description as reimbursement_type "
-					+ "from "
-					+ "(select reimbursement_id, reimbursement_staff_id, reimbursement_amount, reimbursement_description, reimbursement_date_submitted, reimbursement_date_approved, (staff_first_name || ' ' || staff_last_name) as reimbursement_approve_by, "
-					+ "reimbursement_status_desc, reimbursement_type_description from reimbursement "
-					+ "left join reimbursement_type on reimbursement_type = reimbursement_type_id left join reimbursement_status on reimbursement_pending = reimbursement_status_id "
-					+ "left join staff on staff_id = reimbursement_approve_by where reimbursement_status_desc = 'PENDING') "
-					+ "left join staff on staff_id = reimbursement_staff_id where reimbursement_status_desc = 'PENDING'";
+			String command = "select reimbursement_id, (staff_first_name || ' ' || staff_last_name) as reimbursement_staff_requestee, reimbursement_amount, "
+					+"reimbursement_description, reimbursement_date_submitted, reimbursement_date_approved, reimbursement_approve_by, "
+					+"reimbursement_status_desc as reimbursement_status, "
+					+"reimbursement_type_description as reimbursement_type "
+					+"from (select reimbursement_id, reimbursement_staff_id, reimbursement_amount, reimbursement_description, reimbursement_date_submitted, "
+					+"reimbursement_date_approved, (staff_first_name || ' ' || staff_last_name) as reimbursement_approve_by, reimbursement_status_desc, "
+					+"reimbursement_type_description from reimbursement "
+					+"left join reimbursement_type on reimbursement_type = reimbursement_type_id "
+					+"left join reimbursement_status on reimbursement_pending = reimbursement_status_id "
+					+"left join staff on staff_id = reimbursement_approve_by) "
+					+"left join staff on staff_id = reimbursement_staff_id";
 			PreparedStatement statement = connection.prepareStatement(command);
+			
 			ResultSet result = statement.executeQuery();
 			List<Reimbursement> reimbursementList = new ArrayList<>();
 			while(result.next()) {
@@ -134,7 +102,131 @@ public class ReimbursementDaoJdbc implements ReimbursementDao {
 		return new ArrayList<>();
 	}
 
+	@Override
+	public List<Reimbursement> selectAll(Reimbursement reimbursement) {
+		try(Connection connection = ConnectionUtil.getConnection()) {
+			int statementIndex = 0;
+			String command = "select reimbursement_id, (staff_first_name || ' ' || staff_last_name) as reimbursement_staff_requestee, reimbursement_amount, "
+					+"reimbursement_description, reimbursement_date_submitted, reimbursement_date_approved, reimbursement_approve_by, "
+					+"reimbursement_status_desc as reimbursement_status, "
+					+"reimbursement_type_description as reimbursement_type "
+					+"from (select reimbursement_id, reimbursement_staff_id, reimbursement_amount, reimbursement_description, reimbursement_date_submitted, "
+					+"reimbursement_date_approved, (staff_first_name || ' ' || staff_last_name) as reimbursement_approve_by, reimbursement_status_desc, "
+					+"reimbursement_type_description from reimbursement "
+					+"left join reimbursement_type on reimbursement_type = reimbursement_type_id "
+					+"left join reimbursement_status on reimbursement_pending = reimbursement_status_id "
+					+"left join staff on staff_id = reimbursement_approve_by where reimbursement_status_desc = ?) "
+					+"left join staff on staff_id = reimbursement_staff_id where reimbursement_status_desc = ? and reimbursement_staff_id = ?";
+			PreparedStatement statement = connection.prepareStatement(command);
+			statement.setString(++statementIndex, reimbursement.getStatus());
+			statement.setString(++statementIndex, reimbursement.getStatus()); 
+			statement.setInt(++statementIndex, reimbursement.getStaff_id());
+			ResultSet result = statement.executeQuery();
+			List<Reimbursement> reimbursementList = new ArrayList<>();
+			while(result.next()) {
+				reimbursementList.add(new Reimbursement(
+						result.getInt("reimbursement_id"),
+						result.getString("reimbursement_staff_requestee"),
+						result.getInt("reimbursement_amount"),
+						result.getString("reimbursement_description"),
+						result.getString("reimbursement_date_submitted"),
+						result.getString("reimbursement_date_approved"),
+						result.getString("reimbursement_approve_by"),
+						result.getString("reimbursement_status"),
+						result.getString("reimbursement_type")
+						));
+			}
+
+			return reimbursementList;
+		} catch (SQLException e) {
+			System.out.println("select in");
+			LogUtil.logger.warn("Exception selecting all reimbursements", e);
+		} 
+		return new ArrayList<>();
+	}
+
+	@Override
+	public List<Reimbursement> selectAllUsersRequests(Reimbursement reimbursement) {
+		try(Connection connection = ConnectionUtil.getConnection()) {
+			int statementIndex = 0;
+			String command = "select reimbursement_id, (staff_first_name || ' ' || staff_last_name) as reimbursement_staff_requestee, reimbursement_amount, "
+					+ "reimbursement_description, reimbursement_date_submitted, reimbursement_date_approved, reimbursement_approve_by, reimbursement_status_desc as reimbursement_status, "
+					+ "reimbursement_type_description as reimbursement_type "
+					+ "from (select reimbursement_id, reimbursement_staff_id, reimbursement_amount, reimbursement_description, "
+					+ "reimbursement_date_submitted, reimbursement_date_approved, (staff_first_name || ' ' || staff_last_name) as reimbursement_approve_by, reimbursement_status_desc, "
+					+ "reimbursement_type_description from reimbursement "
+					+ "left join reimbursement_type on reimbursement_type = reimbursement_type_id "
+					+ "left join reimbursement_status on reimbursement_pending = reimbursement_status_id "
+					+ "left join staff on staff_id = reimbursement_approve_by where reimbursement_staff_id = ?) "
+					+ "left join staff on staff_id = reimbursement_staff_id where reimbursement_staff_id = ?";
+			PreparedStatement statement = connection.prepareStatement(command);
+			statement.setInt(++statementIndex, reimbursement.getStaff_id());
+			statement.setInt(++statementIndex, reimbursement.getStaff_id());
+			ResultSet result = statement.executeQuery();
+			System.out.println(result);
+			List<Reimbursement> reimbursementList = new ArrayList<>();
+			while(result.next()) {
+				reimbursementList.add(new Reimbursement(
+						result.getInt("reimbursement_id"),
+						result.getString("reimbursement_staff_requestee"),
+						result.getInt("reimbursement_amount"),
+						result.getString("reimbursement_description"),
+						result.getString("reimbursement_date_submitted"),
+						result.getString("reimbursement_date_approved"),
+						result.getString("reimbursement_approve_by"),
+						result.getString("reimbursement_status"),
+						result.getString("reimbursement_type")
+						));
+			}
+
+			return reimbursementList;
+		} catch (SQLException e) {
+			System.out.println("select in");
+			LogUtil.logger.warn("Exception selecting all reimbursements", e);
+		} 
+		return new ArrayList<>();
+	}
 	
-	
-	
+	@Override
+	public List<Reimbursement> selectAllUserRequestees(Reimbursement reimbursement) {
+		try(Connection connection = ConnectionUtil.getConnection()) {
+			int statementIndex = 0;
+			String command = "select reimbursement_id, (staff_first_name || ' ' || staff_last_name) as reimbursement_staff_requestee, reimbursement_amount, "
+					+ "reimbursement_description, reimbursement_date_submitted, reimbursement_date_approved, reimbursement_approve_by, reimbursement_status_desc as reimbursement_status, "
+					+ "reimbursement_type_description as reimbursement_type "
+					+ "from (select reimbursement_id, reimbursement_staff_id, reimbursement_amount, reimbursement_description, reimbursement_date_submitted, "
+					+ "reimbursement_date_approved, (staff_first_name || ' ' || staff_last_name) as reimbursement_approve_by, reimbursement_status_desc, "
+					+ "reimbursement_type_description from reimbursement "
+					+ "left join reimbursement_type on reimbursement_type = reimbursement_type_id "
+					+ "left join reimbursement_status on reimbursement_pending = reimbursement_status_id "
+					+ "left join staff on staff_id = reimbursement_approve_by where reimbursement_status_desc = ?) "
+					+ "left join staff on staff_id = reimbursement_staff_id where reimbursement_status_desc = ?";
+			PreparedStatement statement = connection.prepareStatement(command);
+			statement.setString(++statementIndex, reimbursement.getStatus());
+			statement.setString(++statementIndex, reimbursement.getStatus());
+			ResultSet result = statement.executeQuery();
+			System.out.println(result);
+			List<Reimbursement> reimbursementList = new ArrayList<>();
+			while(result.next()) {
+				reimbursementList.add(new Reimbursement(
+						result.getInt("reimbursement_id"),
+						result.getString("reimbursement_staff_requestee"),
+						result.getInt("reimbursement_amount"),
+						result.getString("reimbursement_description"),
+						result.getString("reimbursement_date_submitted"),
+						result.getString("reimbursement_date_approved"),
+						result.getString("reimbursement_approve_by"),
+						result.getString("reimbursement_status"),
+						result.getString("reimbursement_type")
+						));
+			}
+
+			return reimbursementList;
+		} catch (SQLException e) {
+			System.out.println("select in");
+			LogUtil.logger.warn("Exception selecting all reimbursements", e);
+		} 
+		return new ArrayList<>();
+	}
 }
+

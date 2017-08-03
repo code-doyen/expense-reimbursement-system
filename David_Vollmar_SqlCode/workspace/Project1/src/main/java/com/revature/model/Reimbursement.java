@@ -1,5 +1,4 @@
 package com.revature.model;
-import java.awt.Image;
 import java.sql.Blob;
 
 /* Main Customer POJO (bean) needed for example */
@@ -35,7 +34,19 @@ public class Reimbursement {
 		this.status = "";
 		this.type = "";
 	}
-	//--exec insert_reimbursement(staff_id,  amount, description, image, 'type desc');
+	public Reimbursement(int staff_id) {
+		this.staff_id = staff_id;
+	}
+	
+	public Reimbursement(String status ) {
+		this.status	 = status;
+	}
+	
+	public Reimbursement(int staff_id, String status) {
+		this.staff_id = staff_id;
+		this.status = status;
+	}
+	
 	public Reimbursement(int staff_id, int amount, String description, Blob image, String type) {
 		this.staff_id = staff_id;
 		this.amount = amount;
@@ -43,6 +54,23 @@ public class Reimbursement {
 		this.image = image;
 		this.type = type;
 	}
+	
+	public Reimbursement(int id, String requestee, int amount, int pending, String description, String date_submitted,
+			String date_approved, String approve_by, String aprovee, String status, String type){
+		this.id = id;
+		this.fullname = requestee;
+		this.amount = amount;
+		this.pending = pending;
+		this.description = description;
+		this.date_submitted = date_submitted;
+		this.date_approved = date_approved;
+		this.approve_by = approve_by;
+		this.manager = aprovee;
+		this.status = status;
+		this.type = type;
+	}
+			
+			
 	
 	public Reimbursement(int id, int staff_id, int amount, int pending, String description, String date_submitted,
 			String date_approved, String approve_by, Blob image, String position, String status, String type) {
@@ -72,7 +100,6 @@ public class Reimbursement {
 	public Reimbursement(int reimbursement_id, String reimbursement_staff_requestee, int reimbursement_amount,
 			String reimbursement_description, String reimbursement_date_submitted, String reimbursement_date_approved, 
 			String reimbursement_approve_by, String reimbursement_status, String reimbursement_type_description) {
-		super();
 		this.id = reimbursement_id;
 		this.fullname = reimbursement_staff_requestee;
 		this.amount = reimbursement_amount;
@@ -158,12 +185,26 @@ public class Reimbursement {
 	public void setType(String type) {
 		this.type = type;
 	}
+	
+	public String getFullname() {
+		return fullname;
+	}
+	public void setFullname(String fullname) {
+		this.fullname = fullname;
+	}
+	public String getManager() {
+		return manager;
+	}
+	public void setManager(String manager) {
+		this.manager = manager;
+	}
 	@Override
 	public String toString() {
-		return "Reimbursement [id=" + id + ", staff_id=" + staff_id + ", amount=" + amount + ", pending=" + pending
-				+ ", description=" + description + ", date_submitted=" + date_submitted + ", date_approved="
-				+ date_approved + ", approve_by=" + approve_by + ", image=" + image + ", position=" + position
-				+ ", status=" + status + ", type=" + type + "]";
+		return "Reimbursement [id=" + id + ", staff_id=" + staff_id + ", fullname=" + fullname + ", manager=" + manager
+				+ ", amount=" + amount + ", pending=" + pending + ", description=" + description + ", date_submitted="
+				+ date_submitted + ", date_approved=" + date_approved + ", approve_by=" + approve_by + ", image="
+				+ image + ", position=" + position + ", status=" + status + ", type=" + type + "]";
 	}
+	
 		
 }

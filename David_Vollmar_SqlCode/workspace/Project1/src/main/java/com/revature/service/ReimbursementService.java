@@ -22,11 +22,6 @@ public class ReimbursementService {
 		return reimbursementService;
 	}
 	
-	/* Calls the insert method of the DAO */
-//	public boolean registerReimbursement(Reimbursement reimbursement) {
-//		return ReimbursementDaoJdbc.getReimbursementDaoJdbc().insert(reimbursement);
-//	}
-	
 	/* Calls the insert method that uses stored procedure in DAO */
 	public boolean registerReimbursementSecure(Reimbursement reimbursement) {
 		return ReimbursementDaoJdbc.getReimbursementDaoJdbc().insertProcedure(reimbursement);
@@ -37,4 +32,15 @@ public class ReimbursementService {
 		return ReimbursementDaoJdbc.getReimbursementDaoJdbc().selectAll();
 	}
 	
+	public List<Reimbursement> listAllStaffRequests(Reimbursement reimbursement) {
+		return ReimbursementDaoJdbc.getReimbursementDaoJdbc().selectAll(reimbursement);
+	}
+	
+	public List<Reimbursement> listAllUsersRequests(Reimbursement reimbursement) {
+		return ReimbursementDaoJdbc.getReimbursementDaoJdbc().selectAllUsersRequests(reimbursement);
+	}
+	
+	public List<Reimbursement> listAllUserRequestees(Reimbursement reimbursement) {
+		return ReimbursementDaoJdbc.getReimbursementDaoJdbc().selectAllUserRequestees(reimbursement);
+	}
 }

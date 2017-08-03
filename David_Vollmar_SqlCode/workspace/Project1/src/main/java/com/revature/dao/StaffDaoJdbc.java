@@ -30,31 +30,6 @@ public class StaffDaoJdbc implements StaffDao {
 		return staffDaoJdbc;
 	}
 	
-	/* Regular insert statement for staff */
-//	@Override
-//	public boolean insert(Staff staff) {
-//		try(Connection connection = ConnectionUtil.getConnection()) {
-//			int statementIndex = 0;
-//			String command = "INSERT INTO staff VALUES(NULL,?,?,?,?)";
-//
-//			PreparedStatement statement = connection.prepareStatement(command);
-//
-//			//Set attributes to be inserted
-//			statement.setString(++statementIndex, staff.getFirstName().toUpperCase());
-//			statement.setString(++statementIndex, staff.getLastName().toUpperCase());
-//			statement.setString(++statementIndex, staff.getUsername().toLowerCase());
-//			statement.setString(++statementIndex, staff.getPassword());
-//			
-//
-//			if(statement.executeUpdate() > 0) {
-//				return true;
-//			}
-//		} catch (SQLException e) {
-//			LogUtil.logger.warn("Exception creating a new staff", e);
-//		}
-//		return false;
-//	}
-
 	/* Insert a staff using the stored procedure we created */
 	@Override
 	public boolean insertProcedure(Staff staff) {
@@ -72,12 +47,40 @@ public class StaffDaoJdbc implements StaffDao {
 			statement.setString(++statementIndex, staff.getUsername().toLowerCase());
 			statement.setString(++statementIndex, staff.getPassword());
 			statement.setInt(++statementIndex, staff.getRank());
-			statement.setString(++statementIndex, staff.getFirstName());
 			statement.setString(++statementIndex, staff.getFirstName().toUpperCase());
+			statement.setString(++statementIndex, staff.getLastName().toUpperCase());
 			statement.setString(++statementIndex, staff.getPhone());
 			statement.setString(++statementIndex, staff.getEmail());
 			statement.setString(++statementIndex, staff.getPosition().toUpperCase());
 			
+			if(statement.executeUpdate() > 0) {
+				return true;
+			}
+		} catch (SQLException e) {
+			LogUtil.logger.warn("Exception creating a new staff with stored procedure", e);
+		}
+		return false;
+	}
+	
+	public boolean updateProcedure(Staff staff) {
+		try(Connection connection = ConnectionUtil.getConnection()) {
+			int statementIndex = 0;
+			
+			//Pay attention to this syntax
+			//update_staff('user', 'password', 'first_name', 'last_name', 'phone', 'email');
+			String command = "{call update_staff(?,?,?,?,?,?)}";
+			
+			//Notice the CallableStatement
+			CallableStatement statement = connection.prepareCall(command);
+			
+			//Set attributes to be inserted
+			statement.setString(++statementIndex, staff.getUsername().toLowerCase());
+			statement.setString(++statementIndex, staff.getPassword());
+			statement.setString(++statementIndex, staff.getFirstName().toUpperCase());
+			statement.setString(++statementIndex, staff.getLastName().toUpperCase());
+			statement.setString(++statementIndex, staff.getPhone());
+			statement.setString(++statementIndex, staff.getEmail());
+					
 			if(statement.executeUpdate() > 0) {
 				return true;
 			}
@@ -92,7 +95,7 @@ public class StaffDaoJdbc implements StaffDao {
 	public Staff select(Staff staff) {
 		try(Connection connection = ConnectionUtil.getConnection()) {
 			int statementIndex = 0;
-			String command = "select staff_id, staff_username, staff_password, staff_rank, staff_first_name, staff_last_name, staff_phone, staff_email, rank_description as staff_position from staff left join staff_rank on staff_rank = rank_id where staff_username = ?";
+			String command = "select staff_username, staff_first_name, staff_last_name, staff_phone, staff_email, rank_description as staff_position from staff left join staff_rank on staff_rank = rank_id where staff_username = ?";
 			PreparedStatement statement = connection.prepareStatement(command);
 			statement.setString(++statementIndex, staff.getUsername());
 			ResultSet result = statement.executeQuery();
@@ -121,16 +124,38 @@ public class StaffDaoJdbc implements StaffDao {
 	public List<Staff> selectAll() {
 		try(Connection connection = ConnectionUtil.getConnection()) {
 			
-			String command = "select staff_id, staff_username, staff_password, staff_rank, staff_first_name, staff_last_name, staff_phone, staff_email, rank_description as staff_position from staff left join staff_rank on staff_rank = rank_id";
+			String command = "select (staff_first_name || ' ' || staff_last_name) as staff_member, staff_phone, staff_email from staff";
 			PreparedStatement statement = connection.prepareStatement(command);
 			ResultSet result = statement.executeQuery();
 			List<Staff> staffList = new ArrayList<>();
 			while(result.next()) {
 				staffList.add(new Staff(
-						result.getInt("staff_id"),
+						result.getString("staff_member"),
+						result.getString("staff_phone"),
+						result.getString("staff_email")
+						));
+			}
+
+			return staffList;
+		} catch (SQLException e) {
+			System.out.println("select in");
+			LogUtil.logger.warn("Exception selecting all staffs", e);
+		} 
+		return new ArrayList<>();
+	}
+	
+	public List<Staff> selectDetails(Staff staff) {
+		try(Connection connection = ConnectionUtil.getConnection()) {
+			
+			String command = "select staff_username, staff_first_name, staff_last_name, staff_phone, "
+					+ "staff_email, rank_description as staff_position from staff left join staff_rank on staff_rank = rank_id where staff_username = ?";
+			PreparedStatement statement = connection.prepareStatement(command);
+			statement.setString(1, staff.getUsername());
+			ResultSet result = statement.executeQuery();
+			List<Staff> staffList = new ArrayList<>();
+			while(result.next()) {
+				staffList.add(new Staff(
 						result.getString("staff_username"),
-						result.getString("staff_password"),
-						result.getInt("staff_rank"),
 						result.getString("staff_first_name"),
 						result.getString("staff_last_name"),
 						result.getString("staff_phone"),
