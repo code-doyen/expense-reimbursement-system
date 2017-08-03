@@ -7,13 +7,13 @@ Expense Reimbursement System (ERS) - Presentation Monday - 08/04/2017
 
 
 -An Employee can view the Employee Homepage
-----An Employee can submit a reimbursement request
-	    exec insert_reimbursement(1,  212, 'bacon it', null, 'type desc');
-----An Employee can upload an image of his/her receipt as part of the reimbursement request (hard / do last)
-	    update--exec insert_reimbursement(1,  212, 'bacon it', null, 'type desc');
+----An Employee can submit a reimbursement request || an image of his/her receipt as part of the reimbursement request (hard / do last)
+	---> exec insert_reimbursement(1,  212, 'bacon it', null, 'type desc');
+ 
+	   
 
 ----An Employee can view their pending reimbursement requests
-		select reimbursement_id, (staff_first_name || ' ' || staff_last_name) as reimbursement_staff_requestee, reimbursement_amount, reimbursement_description,
+   --->	select reimbursement_id, (staff_first_name || ' ' || staff_last_name) as reimbursement_staff_requestee, reimbursement_amount, reimbursement_description,
 		reimbursement_date_submitted, reimbursement_date_approved, reimbursement_approve_by, reimbursement_status_desc as reimbursement_status, 
 		reimbursement_type_description as reimbursement_type 
 		from 
@@ -25,7 +25,7 @@ Expense Reimbursement System (ERS) - Presentation Monday - 08/04/2017
 		left join staff on staff_id = reimbursement_approve_by where reimbursement_status_desc = 'PENDING')
 		left join staff on staff_id = reimbursement_staff_id where reimbursement_status_desc = 'PENDING' and reimbursement_staff_id = 2; 
 ----An Employee can view their resolved reimbursement requests
-		select reimbursement_id, (staff_first_name || ' ' || staff_last_name) as reimbursement_staff_requestee, reimbursement_amount, reimbursement_description,
+  --->  select reimbursement_id, (staff_first_name || ' ' || staff_last_name) as reimbursement_staff_requestee, reimbursement_amount, reimbursement_description,
 		reimbursement_date_submitted, reimbursement_date_approved, reimbursement_approve_by, reimbursement_status_desc as reimbursement_status, 
 		reimbursement_type_description as reimbursement_type 
 		from 
@@ -38,15 +38,19 @@ Expense Reimbursement System (ERS) - Presentation Monday - 08/04/2017
 		left join staff on staff_id = reimbursement_staff_id where reimbursement_status_desc = 'RESOLVED' and reimbursement_staff_id = 2; 
 ----An Employee can view their information
 		select staff_username, staff_first_name, staff_last_name, staff_phone, staff_email, rank_description as staff_position from staff left join staff_rank on staff_rank = rank_id where staff_username = 'david';
+
+		
 ----An Employee can update their information
-		update_staff('user', 'password', 'firs_name', 'last_name', 'phone', 'email');
+  --->	update_staff('user', 'password', 'first_name', 'last_name', 'phone', 'email');
+
+		
 ----An Employee receives an email when one of their reimbursement requests is resolved (optional)
 
 
 -A Manager can view the Manager Homepage
 ----A Manager can approve/deny pending reimbursement requests
 ----A Manager can view all pending requests from all employees
-		select reimbursement_id, (staff_first_name || ' ' || staff_last_name) as reimbursement_staff_requestee, reimbursement_amount, reimbursement_description,
+  --->  select reimbursement_id, (staff_first_name || ' ' || staff_last_name) as reimbursement_staff_requestee, reimbursement_amount, reimbursement_description,
 		reimbursement_date_submitted, reimbursement_date_approved, reimbursement_approve_by, reimbursement_status_desc as reimbursement_status, 
 		reimbursement_type_description as reimbursement_type 
 		from 
@@ -59,7 +63,7 @@ Expense Reimbursement System (ERS) - Presentation Monday - 08/04/2017
 		left join staff on staff_id = reimbursement_staff_id where reimbursement_status_desc = 'PENDING'; -- and reimbursement_approve_by <> null;
 	
 ----A Manager can view all resolved requests from all employees and see which manager resolved it
-		select reimbursement_id, (staff_first_name || ' ' || staff_last_name) as reimbursement_staff_requestee, reimbursement_amount, reimbursement_description,
+ ---->  select reimbursement_id, (staff_first_name || ' ' || staff_last_name) as reimbursement_staff_requestee, reimbursement_amount, reimbursement_description,
 		reimbursement_date_submitted, reimbursement_date_approved, reimbursement_approve_by, reimbursement_status_desc as reimbursement_status, 
 		reimbursement_type_description as reimbursement_type 
 		from 
@@ -72,7 +76,7 @@ Expense Reimbursement System (ERS) - Presentation Monday - 08/04/2017
 		left join staff on staff_id = reimbursement_staff_id where reimbursement_status_desc = 'RESOLVED'; -- and reimbursement_approve_by <> null;
 	
 ----A Manager can view reimbursement requests from a single Employee
-		select reimbursement_id, (staff_first_name || ' ' || staff_last_name) as reimbursement_staff_requestee, reimbursement_amount, reimbursement_description,
+  --->	select reimbursement_id, (staff_first_name || ' ' || staff_last_name) as reimbursement_staff_requestee, reimbursement_amount, reimbursement_description,
 		reimbursement_date_submitted, reimbursement_date_approved, reimbursement_approve_by, reimbursement_status_desc as reimbursement_status, 
 		reimbursement_type_description as reimbursement_type 
 		from 
@@ -85,17 +89,18 @@ Expense Reimbursement System (ERS) - Presentation Monday - 08/04/2017
 		left join staff on staff_id = reimbursement_staff_id where reimbursement_staff_id = 1; -- and reimbursement_approve_by <> null;
 
 ----A Manager can view all Employees
-		select (staff_first_name || ' ' || staff_last_name) as staff_member, staff_phone, staff_email from staff;
+  --->	select (staff_first_name || ' ' || staff_last_name) as staff_member, staff_phone, staff_email from staff;
 
 
-
-	-A Manager can register an Employee, which sends the Employee an email with their username and temp password (optional)
+----A Manager can register an Employee, which sends the Employee an email with their username and temp password (optional)
+  --->	exec insert_staff('username', 'password', 2, 'elena', 'vollmar', null, 'elena@bgsu.edu', 'Manager');
+	
 	
 	*-A Manager can view images of the receipts from reimbursement requests (hard /do last)
 
 ------------------------------------------------------------------
 
--An Employee can reset their password (Optional - tied with above functional requirement)
+	-An Employee can reset their password (Optional - tied with above functional requirement)
 
 Technologies:
 -Java 1.8
