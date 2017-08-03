@@ -1,0 +1,25 @@
+@CHARSET "ISO-8859-1";
+p{
+	text-align: left;
+	color: blue;
+	width: 50%;
+}
+div, p{
+	
+}
+#row1{
+	background-color: lightgrey;
+	text-align: center;
+	font-size: 25px;
+	color: purple;
+}
+#row2, #row3{
+	background-color: lightgrey;
+	text-align: center;
+	font-size: 20px;
+	color: darkblue;
+	
+	margin:top;
+	border:thin;
+	padding-bottom:left;
+}

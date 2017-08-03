@@ -59,7 +59,30 @@ public class ReimbursementDaoJdbc implements ReimbursementDao {
 		}
 		return false;
 	}
-
+	
+	public boolean updateProcedure(Reimbursement reimbursement) {
+		try(Connection connection = ConnectionUtil.getConnection()) {
+			int statementIndex = 0;
+			
+			//Pay attention to this syntax
+			String command = "{call update_status(?,?)}";
+			
+			//Notice the CallableStatement
+			CallableStatement statement = connection.prepareCall(command);
+			
+			//Set attributes to be inserted
+			statement.setString(++statementIndex, reimbursement.getStatus().toUpperCase());
+			statement.setInt(++statementIndex, reimbursement.getId());
+			
+			
+			if(statement.executeUpdate() > 0) {
+				return true;
+			}
+		} catch (SQLException e) {
+			LogUtil.logger.warn("Exception updating a reimbursement status with stored procedure", e);
+		}
+		return false;
+	}
 
 	/* Select all reimbursements */
 	public List<Reimbursement> selectAll() {

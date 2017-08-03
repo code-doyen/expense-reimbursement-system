@@ -42,6 +42,11 @@ public class Reimbursement {
 		this.status	 = status;
 	}
 	
+	public Reimbursement(String status, int id) {
+		this.id = id;
+		this.status = status;
+	}
+	
 	public Reimbursement(int staff_id, String status) {
 		this.staff_id = staff_id;
 		this.status = status;

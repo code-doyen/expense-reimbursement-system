@@ -18,11 +18,14 @@ public class LoginController {
 		//POST logic
 		Staff loggedStaff = StaffService.getStaffService().login(
 				new Staff(
+						//request.getParameter("staff_rank"),
 						request.getParameter("username"),
 						request.getParameter("password")
 						));
 		
 		// Wrong Credentials
+		System.out.println(loggedStaff);
+		
 		System.out.println(loggedStaff);
 		if(loggedStaff.getUsername().equals("")) {
 			return "login.jsp";
@@ -32,8 +35,13 @@ public class LoginController {
 			SESSION SCOPE IS AVAILABLE ONLY IN THIS REQUEST (CLIENT) */
 			request.getSession().setAttribute("loggedStaff", loggedStaff);
 			
+			if(FinalUtil.MANAGER.equalsIgnoreCase(loggedStaff.getPosition())){
+				return "/manager.do";
+			}
+			else{
 			//Forward user to hit another controller
 			return "/home.do";
+			}
 		}
 	}
 }

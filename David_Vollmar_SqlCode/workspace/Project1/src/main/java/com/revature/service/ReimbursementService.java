@@ -27,6 +27,10 @@ public class ReimbursementService {
 		return ReimbursementDaoJdbc.getReimbursementDaoJdbc().insertProcedure(reimbursement);
 	}
 	
+	public boolean updateReimbursementSecure(Reimbursement reimbursement) {
+		return ReimbursementDaoJdbc.getReimbursementDaoJdbc().updateProcedure(reimbursement);
+	}
+	
 	/* Calls selectAll method of the DAO */
 	public List<Reimbursement> listAllUsers() {
 		return ReimbursementDaoJdbc.getReimbursementDaoJdbc().selectAll();

@@ -27,6 +27,7 @@ public class Staff {
 	}
 
 	public Staff(int id) {
+		this();
 		this.id = id;
 	}
 	
@@ -34,17 +35,18 @@ public class Staff {
 		this.username = user;
 	}
 	
+	public Staff(String username, String password) {
+		this();
+		this.username = username;
+		this.password = password;
+	}
+	
 	public Staff(String member, String phone, String email) {
 		this.fullname = member;
 		this.phone = phone;
 		this.email = email;
 	}
-	
-	public Staff(String username, String password) {
-		this.username = username;
-		this.password = password;
-	}
-	
+
 	public Staff(String username, String password, String firstName, String lastName, String phone, String email) {
 		this.username = username;
 		this.password = password;
@@ -52,6 +54,16 @@ public class Staff {
 		this.lastName = lastName;
 		this.phone = phone;
 		this.email = email;
+	}
+	
+	public Staff(String username, String password, String firstName, String lastName, String phone, String email, String position) {
+		this.username = username;
+		this.password = password;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.phone = phone;
+		this.email = email;
+		this.position = position;
 	}
 	
 	//staff_username varchar2, password varchar2, staff_rank number, staff_first_name varchar2, staff_last_name varchar2, staff_phone varchar2, staff_email varchar2, staff_position varchar2
@@ -67,16 +79,6 @@ public class Staff {
 		this.position = position;
 	}
 	
-	public Staff(String username, String password, int rank, String firstName, String lastName, String phone, String email, String position) {
-		this.username = username;
-		this.password = password;
-		this.rank = rank;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.phone = phone;
-		this.email = email;
-		this.position = position;
-	}
 	public int getId() {
 		return id;
 	}

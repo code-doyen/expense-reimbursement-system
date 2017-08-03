@@ -18,7 +18,7 @@ function getUsername(){
 			setValues(ajaxObject);
 		}
 	}
-	xhttp.open('POST', 'http://localhost:8080/FrontController/checkUsername.ajax?username='+username, true);
+	xhttp.open('POST', 'http://localhost:8080/Project1/checkUsername.ajax?username='+username, true);
 	//Sending request to endpoint
 	xhttp.send();
 }

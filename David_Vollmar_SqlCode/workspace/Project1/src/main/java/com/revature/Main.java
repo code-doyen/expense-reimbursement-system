@@ -26,11 +26,16 @@ public class Main {
 
 		//An Employee can view their information
 		System.out.println(StaffService.getStaffService().listAllDetails(
-				//('user', 'password', 'first_name', 'last_name', 'phone', 'email')
-				new Staff("username")));
+				//('user')
+				new Staff("david")));
+		
+		//A Manager can approve/deny pending reimbursement requests
+//		System.out.println(ReimbursementService.getReimbursementService().updateReimbursementSecure(
+//				//('status', id)
+//				new Reimbursement("DENIED", 1)));
 		
 		//A Manager can view all Employees
-		System.out.println(StaffService.getStaffService().listAllUsers());
+//		System.out.println(StaffService.getStaffService().listAllUsers());
 //		
 //		
 //		// An Employee can view their pending/resolved requests from all employees
@@ -54,8 +59,8 @@ public class Main {
 		
 		
 		
-//		//Test login
-//		System.out.println(StaffService.getStaffService().login(
-//				new Staff("david","vollmar")));
+		//Test login
+		System.out.println(StaffService.getStaffService().login(
+				new Staff("david","vollmar")));
 	}
 }
