@@ -79,6 +79,17 @@ public class Staff {
 		this.position = position;
 	}
 	
+	public Staff(String username, String password, int rank, String firstName, String lastName, String phone, String email, String position) {
+		this.username = username;
+		this.password = password;
+		this.rank = rank;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.phone = phone;
+		this.email = email;
+		this.position = position;
+	}
+	
 	public int getId() {
 		return id;
 	}
