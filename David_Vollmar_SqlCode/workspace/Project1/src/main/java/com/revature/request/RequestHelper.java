@@ -8,8 +8,8 @@ import com.revature.controller.StaffController;
 
 /* Class that helps the MasterServlet with mappings to specific controllers */
 public class RequestHelper {
-	
 	public static String process(HttpServletRequest request) {
+		System.out.println(request.getRequestURI());
 		System.out.println(request.getRequestURI());
 		switch(request.getRequestURI()) {
 		case "/Project1/login.do":
@@ -18,6 +18,7 @@ public class RequestHelper {
 			return StaffController.staff(request);
 		case "/Project1/manager.do":
 			return ManagerController.manager(request);
+			
 		default:
 			return "404.jsp";
 		}

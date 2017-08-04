@@ -5,4 +5,5 @@ public class StaffController {
 	public static String staff(HttpServletRequest request) {
 		return "staff.html";
 	}
+	
 }

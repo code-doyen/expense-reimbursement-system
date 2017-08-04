@@ -1,5 +1,5 @@
 
-function Ajax(){
+function Ajax(page, type){
 	var xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function(){
 		//If ready state is done and http status is ok
@@ -11,7 +11,7 @@ function Ajax(){
 			setValues(ajaxObject);
 		}
 	}
-	xhttp.open('GET', 'login.html', true);
+	xhttp.open(type, page, true);
 	//Sending request to endpoint
 	xhttp.send();
 }
