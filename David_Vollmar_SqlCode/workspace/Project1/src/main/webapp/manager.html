@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bootstrap</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+	integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+	crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+	crossorigin="anonymous"></script>
+</head>
+<header>
+<nav class="navbar navbar-inverse"> 
+		<div class="container-fluid"> 
+			<div class="navbar-header"> 
+				<button class="collapsed navbar-toggle" aria-expanded="false" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-9"> <span class="sr-only">Toggle navigation</span> 
+				<span class="icon-bar"></span> 
+				<span class="icon-bar"></span> <span class="icon-bar"></span> 
+				</button> 
+				<i class="navbar-brand">Manager Reimbursements:</i> </div> 
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-9"> 
+				<ul class="nav navbar-nav"> 
+				<li class="active"></li> 
+					<li><a id='process' style="cursor:pointer" onclick='AjaxProfile()'>Process</a></li> 
+					<li><a id='view' style="cursor:pointer" onclick='AjaxView()'>View</a></li>
+					<li><a id='register' style="cursor:pointer" onclick='AjaxRegister()'>Register</a></li>
+					<i style="margin-left: 50px;" class="navbar-brand ">Staff:</i>
+					<li><a id='staffView' style="cursor:pointer" onclick='AjaxStaffView()'>View</a></li>
+					<li><a id='staffRegister' style="cursor:pointer" onclick='AjaxStaffView()'>Register</a></li>
+					 
+				</ul>
+		 		<ul class="nav navbar-nav navbar-right">
+		 			<li><a id='profile' style="cursor:pointer" onclick='AjaxProfile()'>Profile</a></li>
+		 		</ul>
+		 		<ul class="nav navbar-nav navbar-right">
+		 			<li><a id='updateProfile' style="cursor:pointer" onclick='AjaxUpdateProfile()'>Update Profile</a></li>
+		 		</ul>
+		 	</div>
+	</div>
+</nav>
+
+</header>
+<body>
+ <div id="content"></div>
+
+
+</body>
+<script type="text/javascript" src="js/domManipulation.js"></script>
+</html>

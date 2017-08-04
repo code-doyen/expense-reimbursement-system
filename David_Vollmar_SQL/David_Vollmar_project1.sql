@@ -206,6 +206,18 @@ begin
   commit;
 end;
 /
+
+create or replace procedure update_status(status varchar2, rid number)
+as
+begin                  
+  update reimbursement_status set reimbursement_status_desc = status where reimbursement_status_id = rid;
+  commit;
+end;
+/
+select staff_id, staff_username, staff_first_name, staff_last_name, staff_phone, staff_email, rank_description as staff_position 
+from staff left join staff_rank on staff_rank = rank_id where staff_username = 'david' ;
+select * from staff;
+exec update_status('RESOLVED', 1);
 --exec insert_staff(user, pass, rank #, name, last, phone|null, email, position);
 exec insert_staff('username', 'password', 2, 'elena', 'vollmar', null, 'elena@bgsu.edu', 'Manager');
 exec insert_staff('david', 'vollmar', 1, 'david', 'vollmar', null, 'vollmad@bgsu.edu', 'Pro');
@@ -295,8 +307,8 @@ SELECT SESSIONTIMEZONE, CURRENT_DATE FROM DUAL;
 		reimbursement_type_description from reimbursement
 		left join reimbursement_type on reimbursement_type = reimbursement_type_id   
 		left join reimbursement_status on reimbursement_pending = reimbursement_status_id
-		left join staff on staff_id = reimbursement_approve_by where reimbursement_status_desc = 'RESOLVED' or reimbursement_status_desc = 'PENDING')
-		left join staff on staff_id = reimbursement_staff_id where reimbursement_status_desc = 'RESOLVED' or reimbursement_status_desc = 'PENDING'; -- and reimbursement_approve_by <> null;
+		left join staff on staff_id = reimbursement_approve_by where reimbursement_status_desc = 'RESOLVED')
+		left join staff on staff_id = reimbursement_staff_id where reimbursement_status_desc = 'RESOLVED'; -- and reimbursement_approve_by <> null;
 	
 ----A Manager can view reimbursement requests from a single Employee
 		select reimbursement_id, (staff_first_name || ' ' || staff_last_name) as reimbursement_staff_requestee, reimbursement_amount, reimbursement_description,

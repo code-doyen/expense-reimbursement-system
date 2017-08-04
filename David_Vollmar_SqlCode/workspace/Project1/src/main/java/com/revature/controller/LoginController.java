@@ -12,7 +12,7 @@ public class LoginController {
 		
 		//If it's a GET we just return the view.
 		if(request.getMethod().equals(FinalUtil.HTTP_GET)) {
-			return "login.jsp";
+			return "login.html";
 		}
 		
 		//POST logic
@@ -28,7 +28,7 @@ public class LoginController {
 		
 		System.out.println(loggedStaff);
 		if(loggedStaff.getUsername().equals("")) {
-			return "login.jsp";
+			return "login.html";
 		}
 		else {
 			/* Storing loggedStaff to current session
@@ -36,11 +36,11 @@ public class LoginController {
 			request.getSession().setAttribute("loggedStaff", loggedStaff);
 			
 			if(FinalUtil.MANAGER.equalsIgnoreCase(loggedStaff.getPosition())){
-				return "/manager.do";
+				return "manager.do";
 			}
 			else{
 			//Forward user to hit another controller
-			return "/home.do";
+			return "staff.do";
 			}
 		}
 	}
