@@ -20,7 +20,7 @@ function getUsername(){
 	}
 	xhttp.open('POST', 'http://localhost:8080/FrontController/checkUsername.ajax?username='+username, true);
 	//Sending request to endpoint
-	xhttp.send();
+	xhttp.send();d
 }
 //sending the DOM after reciening JSON
 function setValues(response){
