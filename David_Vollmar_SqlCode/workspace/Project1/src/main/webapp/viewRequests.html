@@ -5,15 +5,14 @@
 			<th>ID</th>
 			<th>Staff Member</th>
 			<th>Amount</th>
-			<th>Email</th>
 			<th>Description</th>
 			<th>Date Submitted</th>
 			<th>Date Approved</th>
 			<th>Approve By</th>
 			<th>Status</th>
 			<th>Type</th>
-			<th><a href="Ajax('pendingStaffRequests.ajax', 'GET', 'dynamicTable')" class="glyphicon glyphicon-sort">Pending</a></th>
-			<th><a href="Ajax('resolvedStaffRequests.ajax', 'GET', 'dynamicTable')" class="glyphicon glyphicon-sort">Revolved</a></th>
+			<th><a style="cursor:pointer" onclick="AjaxUpdate('viewRequests.html' ,'content'); Ajax('pendingStaffRequests.ajax','GET','dynamicTable')" class="glyphicon glyphicon-sort">Pending</a></th>
+			<th><a style="cursor:pointer" onclick="AjaxUpdate('viewRequests.html' ,'content'); Ajax('resolvedStaffRequests.ajax','GET','dynamicTable')" class="glyphicon glyphicon-sort">Resolved</a></th>
 		</tr>
 	</thead>
 	<tbody id ='dynamicTable'>

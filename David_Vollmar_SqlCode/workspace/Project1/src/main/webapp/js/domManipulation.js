@@ -37,19 +37,28 @@ function AjaxUpdate(url, element){
 function setValues(response, elem, tbl){
 		
 	if(elem === "dynamicTable" && tbl ==="listAllDetails.ajax"){
-		var table = "<tr>";
+		var table = "";
 		for(var i = 0; i < response.length; i++){
-	        	table += "<td>"+response[i].username+"</td><td>"+response[i].password+"</td><td>"+response[i].firstName+"</td><td>"+response[i].lastName
-	        	+"</td><td>"+response[i].phone+"</td><td>"+response[i].email+"</td><td>"+response[i].position+"</td>";
+	        	table += "<tr><td>"+response[i].username+"</td><td>"+response[i].password+"</td><td>"+response[i].firstName+"</td><td>"+response[i].lastName
+	        	+"</td><td>"+response[i].phone+"</td><td>"+response[i].email+"</td><td>"+response[i].position+"</td></tr>";
 	    }
-		table += "</tr>";
 		document.getElementById(elem).innerHTML = table;
     }
 	else if(elem === "dynamicTable" && (tbl ==="pendingStaffRequests.ajax" || tbl ==="resolvedStaffRequests.ajax")){
 		var table = "";
 		for(var i = 0; i < response.length; i++){
-	        	table += "<tr><td>"+response[i].id+"</td><td>"+"<td>"+response[i].fullname+"</td><td>"+response[i].amount+"</td><td>"+response[i].description+"</td><td>"+response[i].date_submitted
+	        	table += "<tr><td>"+response[i].id+"</td><td>"+response[i].fullname+"</td><td>"+response[i].amount+"</td><td>"+response[i].description+"</td><td>"+response[i].date_submitted
 	        	+"</td><td>"+response[i].date_approved+"</td><td>"+response[i].approve_by+"</td><td>"+response[i].status+"</td><td>"+response[i].type+"</td></tr>";
+	    }
+		
+	
+		
+		document.getElementById(elem).innerHTML = table;
+    }
+	else if(elem === "dynamicTable" && (tbl ==="listAllUsers.ajax")){
+		var table = "";
+		for(var i = 0; i < response.length; i++){
+	        	table += "<tr><td>"+response[i].fullname+"</td><td>"+response[i].phone+"</td><td>"+response[i].email+"</td></tr>";
 	    }
 		
 	

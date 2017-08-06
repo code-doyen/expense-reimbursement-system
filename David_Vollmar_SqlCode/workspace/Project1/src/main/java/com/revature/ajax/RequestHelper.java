@@ -22,7 +22,7 @@ public class RequestHelper {
 			return ReimbursementService.getReimbursementService().listAllUsersRequests(new Reimbursement(s.getId()));
 		case "/Project1/pendingStaffRequests.ajax":  //requests a controller
 			return ReimbursementService.getReimbursementService().listAllStaffRequests(new Reimbursement(s.getId(), "PENDING"));
-		case "/Project1/reolvedStaffRequests.ajax":  //requests a controller
+		case "/Project1/resolvedStaffRequests.ajax":  //requests a controller
 			return ReimbursementService.getReimbursementService().listAllStaffRequests(new Reimbursement(s.getId(), "RESOLVED"));
 		case "/Project1/listAllUsers.ajax":  //requests a controller
 			return StaffService.getStaffService().listAllUsers();

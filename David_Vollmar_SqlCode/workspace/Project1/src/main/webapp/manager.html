@@ -39,7 +39,7 @@
 					<li><a id='view' style="cursor:pointer" onclick="AjaxUpdate('viewRequests.html', 'content')">View</a></li>
 					
 					<i style="margin-left: 100px;" class="navbar-brand ">Staff:</i>
-					<li><a id='staffView' style="cursor:pointer" onclick="AjaxUpdate('viewStaff.html', 'content')">View</a></li>
+					<li><a id='staffView' style="cursor:pointer" onclick="AjaxUpdate('viewStaff.html', 'content'); Ajax('listAllUsers.ajax', 'GET', 'dynamicTable')">View</a></li>
 					<li><a id='staffRegister' style="cursor:pointer" onclick="AjaxUpdate('registerStaff.html','content')">Register</a></li>
 					 
 				</ul>

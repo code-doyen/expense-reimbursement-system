@@ -1,4 +1,4 @@
-<form >
+<form action ="#" >
 			
 			<input id='firstname' type='text' placeholder='Staff first name'>
 			<input id='lastname' type='text' placeholder='Staff last name'>
@@ -14,6 +14,6 @@
 				<option value="SECRETARY">Secretary</option>
 				<option value="STAFF">Staff</option>
 			</select>
-			<button id='submitButton' onclick='Ajax("registerStaff.ajax", "GET", "content")' class='btn btn-primary'>Submit</button> 
+			<button id='submitButton' onclick="Ajax('registerStaff.ajax', 'GET', 'content'); AjaxUpdate('viewStaff.html', 'content'); Ajax('listAllUsers.ajax', 'GET', 'dynamicTable')" class='btn btn-primary'>Submit</button> 
 			
 </form>
