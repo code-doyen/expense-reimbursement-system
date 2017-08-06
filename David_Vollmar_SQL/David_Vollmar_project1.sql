@@ -198,7 +198,7 @@ begin
                                  --typeid, description
   insert into reimbursement_type values(null, reimbursement_type_desc); 
                                     --statusid, status desc
-  insert into reimbursement_status values(null, 'PENDING');
+  --insert into reimbursement_status values(null, 'PENDING');
 
   insert into reimbursement values(null, reimbursement_staff_id, reimbursement_amount, 1, 
   reimbursement_description, to_date(sysdate, 'yyyy-mm-dd hh24:mi:ss'), null,
@@ -207,25 +207,46 @@ begin
 end;
 /
 
-create or replace procedure update_status(status varchar2, rid number)
-as
+create or replace procedure update_status(status number, rid number, aprover number)
+is
 begin                  
-  update reimbursement_status set reimbursement_status_desc = status where reimbursement_status_id = rid;
+  update reimbursement set reimbursement_pending = status, reimbursement_approve_by = aprover, 
+        reimbursement_date_approved = to_date(sysdate, 'yyyy-mm-dd hh24:mi:ss') where reimbursement_id = rid;
   commit;
 end;
 /
-select staff_id, staff_username, staff_first_name, staff_last_name, staff_phone, staff_email, rank_description as staff_position 
-from staff left join staff_rank on staff_rank = rank_id where staff_username = 'david' ;
-select * from staff;
-exec update_status('RESOLVED', 1);
+select * from reimbursement; 
+  insert into reimbursement_status values(null, 'PENDING');
+  insert into reimbursement_status values(null, 'RESOLVED');
+  insert into reimbursement_status values(null, 'DENIED');
+
+--exec update_status('RESOLVED', 3);
 --exec insert_staff(user, pass, rank #, name, last, phone|null, email, position);
-exec insert_staff('username', 'password', 2, 'elena', 'vollmar', null, 'elena@bgsu.edu', 'Manager');
-exec insert_staff('david', 'vollmar', 1, 'david', 'vollmar', null, 'vollmad@bgsu.edu', 'Pro');
+exec insert_staff('username', 'password', 1, 'elena', 'vollmar', null, 'elena@bgsu.edu', 'MANAGER');
+exec insert_staff('david', 'vollmar', 2, 'david', 'vollmar', null, 'vollmad@bgsu.edu', 'STAFF');
+exec insert_staff('bib', 'vollmar', 2, 'david', 'vollmar', null, 'vollmad@bgsu.edu', 'STAFF');
 --exec insert_reimbursement(staff_id,  amount, description, image, 'type desc');
 exec insert_reimbursement(1,  212, 'bacon it', null, 'type desc');
-exec insert_reimbursement(1,  212, 'app it', null, 'type desc');
-exec insert_reimbursement(2,  212, 'bacon', null, 'type desc');
+exec insert_reimbursement(2,  212, 'app it', null, 'type desc');
+exec insert_reimbursement(3,  212, 'den', null, 'type desc');
+
+
+exec insert_reimbursement(1,  212, 'bacon', null, 'type desc');
 exec insert_reimbursement(2,  212, 'it', null, 'type desc');
+exec insert_reimbursement(3,  212, 'den', null, 'type desc');
+
+exec insert_reimbursement(1,  212, 'bacon', null, 'type desc');
+exec insert_reimbursement(2,  212, 'it', null, 'type desc');
+exec insert_reimbursement(3,  212, 'den', null, 'type desc');
+--update_status(status number, rid number, aprover number)
+exec update_status(2, 4, 1);
+exec update_status(2, 5, 1);
+exec update_status(2, 6, 1);
+exec update_status(3, 7, 1);
+exec update_status(3, 8, 1);
+exec update_status(3, 9, 1);
+
+
 select * from reimbursement;
 
 commit;
@@ -234,10 +255,6 @@ exit;
 ---updates
 ---
 
-update REIMBURSEMENT set REIMBURSEMENT_APPROVE_BY = 2 where REIMBURSEMENT_ID =2;
-update REIMBURSEMENT set REIMBURSEMENT_APPROVE_BY = 2 where REIMBURSEMENT_ID =4;
-update reimbursement_status set REIMBURSEMENT_status_Desc = 'RESOLVED' where reimbursement_status_ID =5;
-update reimbursement_status set REIMBURSEMENT_status_Desc = 'RESOLVED' where reimbursement_status_ID =6;
 -- table views
  select * from reimbursement_type;
  select * from reimbursement_status;
@@ -275,7 +292,7 @@ SELECT SESSIONTIMEZONE, CURRENT_DATE FROM DUAL;
 		left join reimbursement_type on reimbursement_type = reimbursement_type_id   
 		left join reimbursement_status on reimbursement_pending = reimbursement_status_id
 		left join staff on staff_id = reimbursement_approve_by where reimbursement_status_desc = 'RESOLVED')
-		left join staff on staff_id = reimbursement_staff_id where reimbursement_status_desc = 'RESOLVED' and reimbursement_staff_id = 1; 
+		left join staff on staff_id = reimbursement_staff_id where reimbursement_status_desc = 'RESOLVED' and reimbursement_staff_id = 2; 
 
 ----An Employee can view their information
 		select staff_username, staff_first_name, staff_last_name, staff_phone, staff_email, rank_description as staff_position from staff left join staff_rank on staff_rank = rank_id where staff_username = 'david';

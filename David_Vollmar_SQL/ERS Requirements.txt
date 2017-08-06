@@ -49,7 +49,7 @@ Expense Reimbursement System (ERS) - Presentation Monday - 08/04/2017
 
 -A Manager can view the Manager Homepage
 ----A Manager can approve/deny pending reimbursement requests
-  --->  exec update_status('RESOLVED', 1);(status, id)
+  --->  update_status(status number, rid number, aprover number)
 
 ----A Manager can view all pending requests from all employees
   --->  select reimbursement_id, (staff_first_name || ' ' || staff_last_name) as reimbursement_staff_requestee, reimbursement_amount, reimbursement_description,
