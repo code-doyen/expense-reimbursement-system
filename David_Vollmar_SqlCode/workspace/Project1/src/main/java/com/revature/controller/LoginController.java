@@ -18,7 +18,6 @@ public class LoginController {
 		//POST logic
 		Staff loggedStaff = StaffService.getStaffService().login(
 				new Staff(
-						//request.getParameter("staff_rank"),
 						request.getParameter("username"),
 						request.getParameter("password")
 						));
@@ -26,7 +25,6 @@ public class LoginController {
 		// Wrong Credentials
 		System.out.println(loggedStaff);
 		
-		System.out.println(loggedStaff);
 		if(loggedStaff.getUsername().equals("")) {
 			return "login.html";
 		}

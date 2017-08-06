@@ -95,7 +95,7 @@ public class StaffDaoJdbc implements StaffDao {
 	public Staff select(Staff staff) {
 		try(Connection connection = ConnectionUtil.getConnection()) {
 			int statementIndex = 0;
-			String command = "select staff_username, staff_password, staff_first_name, staff_last_name, staff_phone, "
+			String command = "select staff_id, staff_username, staff_password, staff_first_name, staff_last_name, staff_phone, "
 					+ "staff_email, rank_description as staff_position from staff "
 					+ "left join staff_rank on staff_rank = rank_id where staff_username = ?";
 			//String command = "select * from staff";
@@ -106,6 +106,7 @@ public class StaffDaoJdbc implements StaffDao {
 			while(result.next()) {
 				
 				return new Staff(
+						result.getInt("staff_id"),
 						result.getString("staff_username"),
 						result.getString("staff_password"),
 						result.getString("staff_first_name"),

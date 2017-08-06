@@ -224,6 +224,8 @@ exec insert_staff('david', 'vollmar', 1, 'david', 'vollmar', null, 'vollmad@bgsu
 --exec insert_reimbursement(staff_id,  amount, description, image, 'type desc');
 exec insert_reimbursement(1,  212, 'bacon it', null, 'type desc');
 exec insert_reimbursement(1,  212, 'app it', null, 'type desc');
+exec insert_reimbursement(2,  212, 'bacon', null, 'type desc');
+exec insert_reimbursement(2,  212, 'it', null, 'type desc');
 select * from reimbursement;
 
 commit;
@@ -234,8 +236,8 @@ exit;
 
 update REIMBURSEMENT set REIMBURSEMENT_APPROVE_BY = 2 where REIMBURSEMENT_ID =2;
 update REIMBURSEMENT set REIMBURSEMENT_APPROVE_BY = 2 where REIMBURSEMENT_ID =4;
-update reimbursement_status set REIMBURSEMENT_status_Desc = 'RESOLVED' where reimbursement_status_ID =2;
-update reimbursement_status set REIMBURSEMENT_status_Desc = 'RESOLVED' where reimbursement_status_ID =4;
+update reimbursement_status set REIMBURSEMENT_status_Desc = 'RESOLVED' where reimbursement_status_ID =5;
+update reimbursement_status set REIMBURSEMENT_status_Desc = 'RESOLVED' where reimbursement_status_ID =6;
 -- table views
  select * from reimbursement_type;
  select * from reimbursement_status;

@@ -1,25 +1,19 @@
-<style>
-table {
-  border: 1px solid blue;
-  border-collapse: separate;
-  border-spacing: 30px 10px;
-  }
-td {
-  border: 1px solid red;
-  }
-</style>
-<table>
+
+<table class="table table-bordered table-striped">
 	<thead>
 		<tr>
+			<th>ID</th>
 			<th>Staff Member</th>
-			<th>Contact</th>
+			<th>Amount</th>
 			<th>Email</th>
-			<th>Contact</th>
-			<th>Email</th>
-			<th>Contact</th>
-			<th>Email</th>
-			<th>Contact</th>
-			<th>Email</th>
+			<th>Description</th>
+			<th>Date Submitted</th>
+			<th>Date Approved</th>
+			<th>Approve By</th>
+			<th>Status</th>
+			<th>Type</th>
+			<th><a href="Ajax('pendingStaffRequests.ajax', 'GET', 'dynamicTable')" class="glyphicon glyphicon-sort">Pending</a></th>
+			<th><a href="Ajax('resolvedStaffRequests.ajax', 'GET', 'dynamicTable')" class="glyphicon glyphicon-sort">Revolved</a></th>
 		</tr>
 	</thead>
 	<tbody id ='dynamicTable'>

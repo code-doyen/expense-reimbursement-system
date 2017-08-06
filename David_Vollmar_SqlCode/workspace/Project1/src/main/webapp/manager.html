@@ -21,6 +21,7 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
 	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 	crossorigin="anonymous"></script>
+
 </head>
 <header>
 <nav class="navbar navbar-inverse"> 
@@ -34,29 +35,32 @@
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-9"> 
 				<ul class="nav navbar-nav"> 
 				<li class="active"></li> 
-					<li><a id='process' style="cursor:pointer" onclick='AjaxUpdate("processStaff.html")'>Process</a></li> 
-					<li><a id='view' style="cursor:pointer" onclick="AjaxUpdate('viewRequests.html')">View</a></li>
+					<li><a id='process' style="cursor:pointer" onclick="AjaxUpdate('processStaff.html', 'content')">Process</a></li> 
+					<li><a id='view' style="cursor:pointer" onclick="AjaxUpdate('viewRequests.html', 'content')">View</a></li>
 					
 					<i style="margin-left: 100px;" class="navbar-brand ">Staff:</i>
-					<li><a id='staffView' style="cursor:pointer" onclick="AjaxUpdate('viewStaff.html')">View</a></li>
-					<li><a id='staffRegister' style="cursor:pointer" onclick="AjaxUpdate('registerStaff.html')">Register</a></li>
+					<li><a id='staffView' style="cursor:pointer" onclick="AjaxUpdate('viewStaff.html', 'content')">View</a></li>
+					<li><a id='staffRegister' style="cursor:pointer" onclick="AjaxUpdate('registerStaff.html','content')">Register</a></li>
 					 
 				</ul>
-		 		<ul class="nav navbar-nav navbar-right">
-		 			<li><a id='profile' style="cursor:pointer" onclick="AjaxUpdate('profile.html')">Profile</a></li>
+				<ul class="nav navbar-nav navbar-right">
+		 			<li><a id='updateProfile' style="cursor:pointer" href="logout.do">Logout</a></li>
 		 		</ul>
 		 		<ul class="nav navbar-nav navbar-right">
-		 			<li><a id='updateProfile' style="cursor:pointer" onclick="AjaxUpdate('updateProfile.html') ">Update Profile</a></li>
+		 			<li><a id='profile' style="cursor:pointer" onclick="AjaxUpdate('viewProfile.html', 'content'); Ajax('listAllDetails.ajax', 'GET', 'dynamicTable');">Profile</a></li>
 		 		</ul>
+		 		<ul class="nav navbar-nav navbar-right">
+		 			<li><a id='updateProfile' style="cursor:pointer" onclick="AjaxUpdate('updateProfile.html', 'content')">Update Profile</a></li>
+		 		</ul>
+		 		
 		 	</div>
 	</div>
-</nav>
+</nav> 
 
 </header>
 <body>
  <div id="content"></div>
 
-
-</body>
 <script type="text/javascript" src="js/domManipulation.js"></script>
+</body>
 </html>

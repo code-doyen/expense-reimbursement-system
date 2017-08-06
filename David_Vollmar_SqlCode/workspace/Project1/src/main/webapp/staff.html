@@ -21,6 +21,7 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
 	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 	crossorigin="anonymous"></script>
+
 </head>
 <header>
 <nav class="navbar navbar-inverse"> 
@@ -33,16 +34,20 @@
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-9"> 
 				<ul class="nav navbar-nav"> 
 				<li class="active"></li> 
-					<li><a id='process' style="cursor:pointer" onclick='AjaxUpdate("makeRequest.html")'>Request</a></li> 
-					<li><a id='views' style="cursor:pointer" onclick='AjaxUpdate("viewRequests.html")'>View</a></li>
+					<li><a id='process' style="cursor:pointer" onclick="AjaxUpdate('makeRequest.html' ,'content')">Request</a></li> 
+					<li><a id='views' style="cursor:pointer" onclick="AjaxUpdate('viewRequests.html' ,'content'); Ajax('pendingStaffRequests.ajax', 'GET', 'dynamicTable')">View</a></li>
 					 
 				</ul>
-		 		<ul class="nav navbar-nav navbar-right">
-		 			<li><a id='profile' style="cursor:pointer" onclick='AjaxUpdate("profile.html")'>Profile</a></li>
+				<ul class="nav navbar-nav navbar-right">
+		 			<li><a id='updateProfile' style="cursor:pointer" href="logout.do">Logout</a></li>
 		 		</ul>
 		 		<ul class="nav navbar-nav navbar-right">
-		 			<li><a id='updateProfile' style="cursor:pointer" onclick='AjaxUpdate("updateProfile.html")'>Update Profile</a></li>
+		 			<li><a id='profile' style="cursor:pointer" onclick="AjaxUpdate('viewProfile.html' ,'content'); Ajax('listAllDetails.ajax', 'GET', 'dynamicTable')">Profile</a></li>
 		 		</ul>
+		 		<ul class="nav navbar-nav navbar-right">
+		 			<li><a id='updateProfile' style="cursor:pointer" onclick="AjaxUpdate('updateProfile.html','content')">Update Profile</a></li>
+		 		</ul>
+		 		
 		 	</div>
 	</div>
 </nav>
@@ -51,7 +56,6 @@
 <body>
  <div id="content"></div>
 
-
-</body>
 <script type="text/javascript" src="js/domManipulation.js"></script>
+</body>
 </html>
