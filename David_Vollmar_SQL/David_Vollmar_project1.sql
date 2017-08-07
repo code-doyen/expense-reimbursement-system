@@ -339,8 +339,9 @@ SELECT SESSIONTIMEZONE, CURRENT_DATE FROM DUAL;
 		reimbursement_type_description from reimbursement
 		left join reimbursement_type on reimbursement_type = reimbursement_type_id   
 		left join reimbursement_status on reimbursement_pending = reimbursement_status_id
-		left join staff on staff_id = reimbursement_approve_by where reimbursement_staff_id = 1)
-		left join staff on staff_id = reimbursement_staff_id where reimbursement_staff_id = 1; -- and reimbursement_approve_by <> null;
-
+		left join staff on staff_id = reimbursement_approve_by where reimbursement_staff_id = 3)
+		left join staff on staff_id = reimbursement_staff_id where reimbursement_staff_id =3; -- and reimbursement_approve_by <> null;
+        
+select * from reimbursement;
 ----A Manager can view all Employees
 		select (staff_first_name || ' ' || staff_last_name) as staff_member, staff_phone, staff_email from staff;   

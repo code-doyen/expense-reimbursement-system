@@ -36,7 +36,7 @@
 				<ul class="nav navbar-nav"> 
 				<li class="active"></li> 
 					<li><a id='process' style="cursor:pointer" onclick="AjaxUpdate('processStaff.html', 'content')">Process</a></li> 
-					<li><a id='view' style="cursor:pointer" onclick="AjaxUpdate('viewRequests.html', 'content')">View</a></li>
+					<li><a id='view' style="cursor:pointer" onclick="AjaxUpdate('viewRequests.html', 'content'); Ajax('listAllUsersRequests.ajax', 'GET', 'dynamicTable')">View</a></li>
 					
 					<i style="margin-left: 100px;" class="navbar-brand ">Staff:</i>
 					<li><a id='staffView' style="cursor:pointer" onclick="AjaxUpdate('viewStaff.html', 'content'); Ajax('listAllUsers.ajax', 'GET', 'dynamicTable')">View</a></li>

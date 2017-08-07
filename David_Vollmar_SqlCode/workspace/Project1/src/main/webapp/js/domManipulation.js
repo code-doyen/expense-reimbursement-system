@@ -44,10 +44,11 @@ function setValues(response, elem, tbl){
 	    }
 		document.getElementById(elem).innerHTML = table;
     }
-	else if(elem === "dynamicTable" && (tbl ==="pendingStaffRequests.ajax" || tbl ==="resolvedStaffRequests.ajax")){
+	else if(elem === "dynamicTable" && (tbl ==="pendingStaffRequests.ajax" || tbl ==="resolvedStaffRequests.ajax" 
+		|| tbl ==="listAllUsersRequests.ajax") || tbl =="usersRequests.ajax"){
 		var table = "";
 		for(var i = 0; i < response.length; i++){
-	        	table += "<tr><td>"+response[i].id+"</td><td>"+response[i].fullname+"</td><td>"+response[i].amount+"</td><td>"+response[i].description+"</td><td>"+response[i].date_submitted
+	        	table += "<tr><td>"+response[i].id+"</td><td>"+response[i].staff_id+"</td><td>"+response[i].fullname+"</td><td>"+response[i].amount+"</td><td>"+response[i].description+"</td><td>"+response[i].date_submitted
 	        	+"</td><td>"+response[i].date_approved+"</td><td>"+response[i].approve_by+"</td><td>"+response[i].status+"</td><td>"+response[i].type+"</td></tr>";
 	    }
 		

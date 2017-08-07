@@ -102,10 +102,11 @@ public class Reimbursement {
 //	result.getString("reimbursement_approve_by"),
 //	result.getString("reimbursement_status"),
 //	result.getString("reimbursement_type_description")
-	public Reimbursement(int reimbursement_id, String reimbursement_staff_requestee, int reimbursement_amount,
+	public Reimbursement(int reimbursement_id, int staff_id, String reimbursement_staff_requestee, int reimbursement_amount,
 			String reimbursement_description, String reimbursement_date_submitted, String reimbursement_date_approved, 
 			String reimbursement_approve_by, String reimbursement_status, String reimbursement_type_description) {
 		this.id = reimbursement_id;
+		this.staff_id = staff_id;
 		this.fullname = reimbursement_staff_requestee;
 		this.amount = reimbursement_amount;
 		//this.pending = pending;

@@ -88,7 +88,7 @@ public class ReimbursementDaoJdbc implements ReimbursementDao {
 	public List<Reimbursement> selectAll() {
 		try(Connection connection = ConnectionUtil.getConnection()) {
 			
-			String command = "select reimbursement_id, (staff_first_name || ' ' || staff_last_name) as reimbursement_staff_requestee, reimbursement_amount, "
+			String command = "select reimbursement_id, staff_id, (staff_first_name || ' ' || staff_last_name) as reimbursement_staff_requestee, reimbursement_amount, "
 					+"reimbursement_description, reimbursement_date_submitted, reimbursement_date_approved, reimbursement_approve_by, "
 					+"reimbursement_status_desc as reimbursement_status, "
 					+"reimbursement_type_description as reimbursement_type "
@@ -106,6 +106,7 @@ public class ReimbursementDaoJdbc implements ReimbursementDao {
 			while(result.next()) {
 				reimbursementList.add(new Reimbursement(
 						result.getInt("reimbursement_id"),
+						result.getInt("staff_id"),
 						result.getString("reimbursement_staff_requestee"),
 						result.getInt("reimbursement_amount"),
 						result.getString("reimbursement_description"),
@@ -129,7 +130,7 @@ public class ReimbursementDaoJdbc implements ReimbursementDao {
 	public List<Reimbursement> selectAll(Reimbursement reimbursement) {
 		try(Connection connection = ConnectionUtil.getConnection()) {
 			int statementIndex = 0;
-			String command = "select reimbursement_id, (staff_first_name || ' ' || staff_last_name) as reimbursement_staff_requestee, reimbursement_amount, "
+			String command = "select reimbursement_id, staff_id, (staff_first_name || ' ' || staff_last_name) as reimbursement_staff_requestee, reimbursement_amount, "
 					+"reimbursement_description, reimbursement_date_submitted, reimbursement_date_approved, reimbursement_approve_by, "
 					+"reimbursement_status_desc as reimbursement_status, "
 					+"reimbursement_type_description as reimbursement_type "
@@ -149,6 +150,7 @@ public class ReimbursementDaoJdbc implements ReimbursementDao {
 			while(result.next()) {
 				reimbursementList.add(new Reimbursement(
 						result.getInt("reimbursement_id"),
+						result.getInt("staff_id"),
 						result.getString("reimbursement_staff_requestee"),
 						result.getInt("reimbursement_amount"),
 						result.getString("reimbursement_description"),
@@ -172,7 +174,7 @@ public class ReimbursementDaoJdbc implements ReimbursementDao {
 	public List<Reimbursement> selectAllUsersRequests(Reimbursement reimbursement) {
 		try(Connection connection = ConnectionUtil.getConnection()) {
 			int statementIndex = 0;
-			String command = "select reimbursement_id, (staff_first_name || ' ' || staff_last_name) as reimbursement_staff_requestee, reimbursement_amount, "
+			String command = "select reimbursement_id, staff_id, (staff_first_name || ' ' || staff_last_name) as reimbursement_staff_requestee, reimbursement_amount, "
 					+ "reimbursement_description, reimbursement_date_submitted, reimbursement_date_approved, reimbursement_approve_by, reimbursement_status_desc as reimbursement_status, "
 					+ "reimbursement_type_description as reimbursement_type "
 					+ "from (select reimbursement_id, reimbursement_staff_id, reimbursement_amount, reimbursement_description, "
@@ -191,6 +193,7 @@ public class ReimbursementDaoJdbc implements ReimbursementDao {
 			while(result.next()) {
 				reimbursementList.add(new Reimbursement(
 						result.getInt("reimbursement_id"),
+						result.getInt("staff_id"),
 						result.getString("reimbursement_staff_requestee"),
 						result.getInt("reimbursement_amount"),
 						result.getString("reimbursement_description"),
@@ -214,7 +217,7 @@ public class ReimbursementDaoJdbc implements ReimbursementDao {
 	public List<Reimbursement> selectAllUserRequestees(Reimbursement reimbursement) {
 		try(Connection connection = ConnectionUtil.getConnection()) {
 			int statementIndex = 0;
-			String command = "select reimbursement_id, (staff_first_name || ' ' || staff_last_name) as reimbursement_staff_requestee, reimbursement_amount, "
+			String command = "select reimbursement_id, staff_id, (staff_first_name || ' ' || staff_last_name) as reimbursement_staff_requestee, reimbursement_amount, "
 					+ "reimbursement_description, reimbursement_date_submitted, reimbursement_date_approved, reimbursement_approve_by, reimbursement_status_desc as reimbursement_status, "
 					+ "reimbursement_type_description as reimbursement_type "
 					+ "from (select reimbursement_id, reimbursement_staff_id, reimbursement_amount, reimbursement_description, reimbursement_date_submitted, "
@@ -233,6 +236,7 @@ public class ReimbursementDaoJdbc implements ReimbursementDao {
 			while(result.next()) {
 				reimbursementList.add(new Reimbursement(
 						result.getInt("reimbursement_id"),
+						result.getInt("staff_id"),
 						result.getString("reimbursement_staff_requestee"),
 						result.getInt("reimbursement_amount"),
 						result.getString("reimbursement_description"),

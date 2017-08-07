@@ -9,17 +9,17 @@ import com.revature.service.StaffService;
 public class RequestHelper {
 	public static Object process(HttpServletRequest request){
 		Staff s = (Staff) request.getSession().getAttribute("loggedStaff");
-		System.out.println(s.getId());
+		System.out.println(request.getParameter("filter"));
 		System.out.println(request.getRequestURI());
 		switch(request.getRequestURI()){
-		case "/Project1/listAllUsersRequests.ajax":  //requests a controller
+		case "/Project1/listAllUsersRequests.ajax":  //requests a controller  done
 			return ReimbursementService.getReimbursementService().listAllUsers();
-		case "/Project1/resolvedRequestees.ajax":  //requests a controller
+		case "/Project1/resolvedRequestees.ajax":  //requests a controller 
 			return ReimbursementService.getReimbursementService().listAllUserRequestees(new Reimbursement("RESOLVED"));
 		case "/Project1/pendingRequestees.ajax":  //requests a controller
 			return ReimbursementService.getReimbursementService().listAllUserRequestees(new Reimbursement("PENDING"));
 		case "/Project1/usersRequests.ajax":  //requests a controller
-			return ReimbursementService.getReimbursementService().listAllUsersRequests(new Reimbursement(s.getId()));
+			return ReimbursementService.getReimbursementService().listAllUsersRequests(new Reimbursement(request.getParameter("filter")));
 		case "/Project1/pendingStaffRequests.ajax":  //requests a controller
 			return ReimbursementService.getReimbursementService().listAllStaffRequests(new Reimbursement(s.getId(), "PENDING"));
 		case "/Project1/resolvedStaffRequests.ajax":  //requests a controller

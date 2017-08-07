@@ -2,7 +2,17 @@
 <table class="table table-bordered table-striped">
 	<thead>
 		<tr>
-			<th>ID</th>
+			<th><a style="cursor:pointer" onclick="AjaxUpdate('viewRequests.html' ,'content'); Ajax('pendingStaffRequests.ajax','GET','dynamicTable')" class="glyphicon glyphicon-list">Pending</a></th>
+			<th><a style="cursor:pointer" onclick="AjaxUpdate('viewRequests.html' ,'content'); Ajax('resolvedStaffRequests.ajax','GET','dynamicTable')" class="glyphicon glyphicon-list">Resolved</a></th>
+			<form method="POST" action='#'>
+				<th class="glyphicon glyphicon-filter"><input name='filter' type="number" size="2" style="cursor:pointer" placeholder='Staff ID:#'/>
+				<button onsubmit="AjaxUpdate('viewRequests.html' ,'content'); Ajax('usersRequests.ajax','GET','dynamicTable')">Filter</button>
+				</th>
+			</form>
+		</tr>
+		<tr>
+			<th>Request ID</th>
+			<th>Staff ID</th>
 			<th>Staff Member</th>
 			<th>Amount</th>
 			<th>Description</th>
@@ -11,8 +21,6 @@
 			<th>Approve By</th>
 			<th>Status</th>
 			<th>Type</th>
-			<th><a style="cursor:pointer" onclick="AjaxUpdate('viewRequests.html' ,'content'); Ajax('pendingStaffRequests.ajax','GET','dynamicTable')" class="glyphicon glyphicon-sort">Pending</a></th>
-			<th><a style="cursor:pointer" onclick="AjaxUpdate('viewRequests.html' ,'content'); Ajax('resolvedStaffRequests.ajax','GET','dynamicTable')" class="glyphicon glyphicon-sort">Resolved</a></th>
 		</tr>
 	</thead>
 	<tbody id ='dynamicTable'>
