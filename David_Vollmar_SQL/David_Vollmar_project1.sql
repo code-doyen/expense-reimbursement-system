@@ -246,9 +246,10 @@ exec update_status(3, 7, 1);
 exec update_status(3, 8, 1);
 exec update_status(3, 9, 1);
 
-
+select staff_username, staff_first_name, staff_last_name, staff_phone, 
+staff_email, rank_description as staff_position from staff left join staff_rank on staff_rank = rank_id where staff_username = 'elena';
 select * from reimbursement;
-
+select *from staff;
 commit;
 exit;
 
@@ -295,7 +296,8 @@ SELECT SESSIONTIMEZONE, CURRENT_DATE FROM DUAL;
 		left join staff on staff_id = reimbursement_staff_id where reimbursement_status_desc = 'RESOLVED' and reimbursement_staff_id = 2; 
 
 ----An Employee can view their information
-		select staff_username, staff_first_name, staff_last_name, staff_phone, staff_email, rank_description as staff_position from staff left join staff_rank on staff_rank = rank_id where staff_username = 'david';
+		select staff_username, staff_password, staff_first_name, staff_last_name, staff_phone, 
+            staff_email, rank_description as staff_position from staff left join staff_rank on staff_rank = rank_id where staff_username ='david';
 ----An Employee can update their information
 		update_staff('user', 'password', 'firs_name', 'last_name', 'phone', 'email');
 ----An Employee receives an email when one of their reimbursement requests is resolved (optional)

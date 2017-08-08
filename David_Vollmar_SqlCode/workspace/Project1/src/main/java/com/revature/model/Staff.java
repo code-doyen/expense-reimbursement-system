@@ -27,7 +27,6 @@ public class Staff {
 	}
 
 	public Staff(int id) {
-		this();
 		this.id = id;
 	}
 	
@@ -36,7 +35,6 @@ public class Staff {
 	}
 	
 	public Staff(String username, String password) {
-		this();
 		this.username = username;
 		this.password = password;
 	}
@@ -48,13 +46,15 @@ public class Staff {
 	}
 
 	
-	public Staff(String username, String password, String firstName, String lastName, String phone, String email) {
+	public Staff(String username, String password,String firstName, String lastName, String phone, String email, String position) {
+		System.out.println("correct");
 		this.username = username;
 		this.password = password;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.phone = phone;
 		this.email = email;
+		this.position = position;
 	}
 	
 	public Staff(int id, String username, String password, String firstName, String lastName, String phone, String email, String position) {

@@ -1,12 +1,12 @@
 
 <table class="table table-bordered table-striped">
 	<thead>
-		<tr>
-			<th><a style="cursor:pointer" onclick="AjaxUpdate('viewRequests.html' ,'content'); Ajax('pendingStaffRequests.ajax','GET','dynamicTable')" class="glyphicon glyphicon-list">Pending</a></th>
-			<th><a style="cursor:pointer" onclick="AjaxUpdate('viewRequests.html' ,'content'); Ajax('resolvedStaffRequests.ajax','GET','dynamicTable')" class="glyphicon glyphicon-list">Resolved</a></th>
+		<tr >
+			<th class="navbar navbar-inverse" style='text-align:center'><a style="cursor:pointer" onclick="AjaxUpdate('viewRequests.html' ,'content'); Ajax('pendingStaffRequests.ajax','GET','dynamicTable')" class="glyphicon glyphicon-list">Pending</a></th>
+			<th class="navbar navbar-inverse" style='text-align:center'><a style="cursor:pointer" onclick="AjaxUpdate('viewRequests.html' ,'content'); Ajax('resolvedStaffRequests.ajax','GET','dynamicTable')" class="glyphicon glyphicon-list">Resolved</a></th>
 			<form method="POST" action='#'>
-				<th class="glyphicon glyphicon-filter"><input name='filter' type="number" size="2" style="cursor:pointer" placeholder='Staff ID:#'/>
-				<button onsubmit="AjaxUpdate('viewRequests.html' ,'content'); Ajax('usersRequests.ajax','GET','dynamicTable')">Filter</button>
+				<th class="navbar navbar-inverse" style='text-align:center'><input name='filter' type="number" size="2" style="cursor:pointer" placeholder='Staff ID:#'/>
+				<button onsubmit="AjaxUpdate('viewRequests.html' ,'content'); Ajax('usersRequests.ajax','GET','dynamicTable')"><i class="glyphicon glyphicon-filter" ></i>Filter</button>
 				</th>
 			</form>
 		</tr>

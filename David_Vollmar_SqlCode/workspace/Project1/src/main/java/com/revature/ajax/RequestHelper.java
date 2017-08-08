@@ -29,13 +29,14 @@ public class RequestHelper {
 		case "/Project1/updateReimbursement.ajax":  //requests a controller															//('status', id)
 			return ReimbursementService.getReimbursementService().updateReimbursementSecure(new Reimbursement("DENIED", 1));
 		case "/Project1/listAllDetails.ajax":  //requests a controller
+			System.out.println( StaffService.getStaffService().listAllDetails(s));
 			return StaffService.getStaffService().listAllDetails(s); //('user')		
 		case "/Project1/updateStaff.ajax":  //requests a controller
 			return StaffService.getStaffService().updateStaffSecure(
 					//('user', 'password', 'first_name', 'last_name', 'phone', 'email')
 					new Staff(request.getSession().getAttribute("loggedStaff").toString(), request.getParameter("password"),
 							request.getParameter("firstname"), request.getParameter("lastname"),
-							request.getParameter("phone"), request.getParameter("email")));
+							request.getParameter("phone"), request.getParameter("email"), request.getParameter("position")));
 			//return "profile.html";
 		case "/Project1/registerReimbursement.ajax":  //requests a controller
 			return ReimbursementService.getReimbursementService().registerReimbursementSecure(

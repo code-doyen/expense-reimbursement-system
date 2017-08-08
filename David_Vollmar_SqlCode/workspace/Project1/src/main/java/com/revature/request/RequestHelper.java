@@ -10,6 +10,7 @@ import com.revature.controller.StaffController;
 /* Class that helps the MasterServlet with mappings to specific controllers */
 public class RequestHelper {
 	public static String process(HttpServletRequest request) {
+		System.out.println("wtf");
 		switch(request.getRequestURI()) {
 		case "/Project1/login.do":
 			return LoginController.login(request);

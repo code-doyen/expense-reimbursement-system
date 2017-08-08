@@ -31,8 +31,9 @@ public class Main {
 		
 //		//A Manager can approve/deny pending reimbursement requests
 //		System.out.println(ReimbursementService.getReimbursementService().updateReimbursementSecure(
-//				//('status', id)
-//				new Reimbursement("DENIED", 1)));
+//				--update_status(status number, rid number, aprover number)
+						//exec update_status(2, 4, 1)
+//				new Reimbursement(2, 4, 1)));
 //		
 //		//A Manager can view all Employees
 //		System.out.println(StaffService.getStaffService().listAllUsers());

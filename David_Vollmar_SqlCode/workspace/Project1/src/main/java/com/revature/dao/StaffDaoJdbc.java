@@ -149,7 +149,7 @@ public class StaffDaoJdbc implements StaffDao {
 	public List<Staff> selectDetails(Staff staff) {
 		try(Connection connection = ConnectionUtil.getConnection()) {
 			int statementIndex = 0;
-			String command = "select staff_username, staff_first_name, staff_last_name, staff_phone, "
+			String command = "select staff_username, staff_password, staff_first_name, staff_last_name, staff_phone, "
 					+ "staff_email, rank_description as staff_position from staff left join staff_rank on staff_rank = rank_id where staff_username = ?";
 			PreparedStatement statement = connection.prepareStatement(command);
 			statement.setString(++statementIndex, staff.getUsername());
@@ -159,6 +159,7 @@ public class StaffDaoJdbc implements StaffDao {
 			while(result.next()) {
 				staffList.add(new Staff(
 						result.getString("staff_username"),
+						result.getString("staff_password"),
 						result.getString("staff_first_name"),
 						result.getString("staff_last_name"),
 						result.getString("staff_phone"),

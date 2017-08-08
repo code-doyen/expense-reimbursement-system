@@ -13,4 +13,6 @@ public interface StaffDao {
 	public Staff select(Staff staff);
 	public List<Staff> selectAll();
 	public String getStaffHash(Staff staff);
+	public List<Staff> selectDetails(Staff staff);
+	
 }
