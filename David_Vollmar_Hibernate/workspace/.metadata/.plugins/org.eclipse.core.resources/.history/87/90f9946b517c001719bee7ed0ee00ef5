@@ -1,0 +1,11 @@
+package com.revature.service;
+
+import java.util.List;
+
+import com.revature.model.Jedi;
+import com.revature.repository.JediRepository;
+
+public interface JediService {
+		public List<Jedi> getAllJedis();
+		
+}

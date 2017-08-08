@@ -1,0 +1,26 @@
+INDEX VERSION 1.130+C:\my_git_repos\1707_july05_java\David_Vollmar_Hibernate\workspace\.metadata\.plugins\org.eclipse.jdt.core
+3490300501.index
+460457503.index
+3256168202.index
+489306375.index
+1184094984.index
+709431314.index
+2739424320.index
+1506658079.index
+2678285699.index
+376730466.index
+4221178837.index
+171484566.index
+4095854.index
+2679726094.index
+3582535144.index
+2826297760.index
+600192306.index
+387825649.index
+2694042569.index
+4205078955.index
+2035476413.index
+3665455195.index
+1966896391.index
+2555065930.index
+3890897641.index

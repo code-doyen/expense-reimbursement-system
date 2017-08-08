@@ -1,0 +1,10 @@
+package com.revature.model;
+
+public class Jedi {
+	private int id;
+	private String name;
+	private String saberColor;
+	
+	public Jedi(){}
+	
+}

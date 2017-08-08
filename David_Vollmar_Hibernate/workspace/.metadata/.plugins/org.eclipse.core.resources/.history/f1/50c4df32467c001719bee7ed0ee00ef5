@@ -1,0 +1,14 @@
+package com.revature.service;
+
+import java.util.List;
+import com.revature.model.Jedi;
+import com.revature.
+public class JediServiceForce implements JediService {
+	private JediRepository jediRepository = new JediRepositoryHibernate();
+	@Override
+	public List<Jedi> getAllJedi() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}
