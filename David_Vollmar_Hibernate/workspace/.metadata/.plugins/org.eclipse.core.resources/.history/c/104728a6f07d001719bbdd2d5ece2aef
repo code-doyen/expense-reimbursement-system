@@ -1,0 +1,14 @@
+package com.revature.rest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+
+import com.revature.service.JediService;
+
+@Controller
+public class JediController {
+	@Autowired
+	private JediService jediService;
+	
+	public JediController(){}
+}

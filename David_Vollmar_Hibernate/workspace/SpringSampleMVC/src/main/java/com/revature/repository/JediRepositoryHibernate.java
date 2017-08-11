@@ -1,0 +1,44 @@
+package com.revature.repository;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.revature.model.Jedi;
+
+@Repository("jediRepository")
+@Transactional
+public class JediRepositoryHibernate implements JediRepository {
+	
+	@Autowired
+	private SessionFactory sessionFactory;
+	
+	public JediRepositoryHibernate(){
+		System.out.println("instaciating jedi repository hibernate bean");
+	}
+	
+	public List<Jedi> selectAll() {
+		return sessionFactory.getCurrentSession().createCriteria(Jedi.class).list();
+	}
+
+	@Override
+	public void insert(Jedi jedi) {
+		// TODO Auto-generated method stub
+		sessionFactory.getCurrentSession().save(jedi);
+	}
+
+	@Override
+	public Jedi selectByName(Jedi jedi) {
+		try{
+			return (Jedi) sessionFactory.getCurrentSession().createCriteria(Jedi.class)
+					.add(Restrictions.like("name", jedi.getName())).list().get(0);
+		}catch(IndexOutOfBoundsException e){
+			return new Jedi();
+		}
+			}
+
+}

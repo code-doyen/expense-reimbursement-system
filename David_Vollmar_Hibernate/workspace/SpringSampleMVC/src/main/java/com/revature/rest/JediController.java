@@ -1,0 +1,32 @@
+package com.revature.rest;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.revature.model.Jedi;
+import com.revature.service.JediService;
+//Provides all enpoints for Jedis RESTful api
+@Controller
+public class JediController {
+	@Autowired
+	private JediService jediService;
+	
+	public JediController(){}
+	
+	@RequestMapping("/getAllJedis.app")
+	public @ResponseBody List<Jedi> getAllJedis(){
+		return jediService.getAllJedis();
+	}
+	
+	//@RequestMapping(value = "/getJedi.app", method = RequestMethod.GET)
+	@RequestMapping("/getJedi.app")
+	public @ResponseBody Jedi getJedi(@RequestBody Jedi jedi){
+		return jediService.findJedi(jedi);
+	}
+}

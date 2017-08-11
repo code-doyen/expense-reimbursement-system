@@ -1,0 +1,11 @@
+app.controller('jediController', function ($scope, $http){
+	
+	$scope.getAllJedis =() =>{
+		$scope.JediList ={};
+		console.log("Getting All Jedis...");
+		$http.post(domain + "getAllJedis.app")
+		.then((successResponse) =>
+			$scope.jediList = successResponse.data;
+		})
+	}
+});

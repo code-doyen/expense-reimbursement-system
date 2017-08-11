@@ -1,0 +1,25 @@
+package com.revature;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import com.revature.service.JediService;
+import com.revature.model.Jedi;
+public class Main {
+
+	public static void main(String[] args) {
+		
+		ApplicationContext appContext = new ClassPathXmlApplicationContext("applicaitonContext.xml");
+		JediService jediService = appContext.getBean("jediService", JediService.class);
+		
+		System.out.println("Registering Jedis:");
+		jediService.registerJedi(new Jedi(0, "Obi Wan", "Blue"));
+		jediService.registerJedi(new Jedi(0, "Yoda", "Red"));
+		jediService.registerJedi(new Jedi(0, "Anakin", "Red"));
+		
+		System.out.println("All Jedis: "+ jediService.getAllJedis());
+		System.out.println("Just Anakin: "+ jediService.findJedi(new Jedi("Anakin")));
+		
+	}
+
+}

@@ -1,0 +1,15 @@
+package com.revature.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+@RequestMapping("/view.app")
+public class ViewController {
+	@Request(value = "/home.app", method = RequestMethod.GET)
+	public String getAppView(){
+		//returns  "app.html implicitly
+		return "app";
+	}
+	
+}

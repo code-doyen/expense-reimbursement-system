@@ -1,0 +1,22 @@
+package com.revature.rest;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+
+import com.revature.model.Jedi;
+import com.revature.service.JediService;
+
+@Controller
+public class JediController {
+	@Autowired
+	private JediService jediService;
+	
+	public JediController(){}
+	
+	
+	public List<Jedi> getAllJedis(){
+		return jediService.getAllJedis();
+	}
+}

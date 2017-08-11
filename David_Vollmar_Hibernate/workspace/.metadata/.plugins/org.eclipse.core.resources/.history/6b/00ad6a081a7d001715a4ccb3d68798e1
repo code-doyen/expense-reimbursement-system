@@ -1,0 +1,49 @@
+package com.revature.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.revature.model.Jedi;
+import com.revature.repository.JediRepository;
+
+@Service("jediService")
+public class JediServiceForce implements JediService{
+	//for contructor injection
+	//@Autowired
+	private JediRepository jediRepository;
+ 	//alaways proved no args contructor
+ public JediServiceForce() {}
+ 
+ //for contructor injection
+ //@Autowired
+ public JediServiceForce(JediRepository jediRepository) {
+	 this.jediRepository = jediRepository;
+ }
+ 
+
+//for setter injection
+//@Autowired
+public void setJediRepository(JediRepository jediRepository) {
+	this.jediRepository = jediRepository;
+}
+
+@Override
+public List<Jedi> getAllJedis() {
+	return jediRepository.selectAll();
+}
+
+@Override
+public void registerJedi(Jedi jedi) {
+	// TODO Auto-generated method stub
+	jediRepository.insert(jedi);
+}
+
+@Override
+public Jedi findJedi(Jedi jedi) {
+	// TODO Auto-generated method stub
+	return jediRepository.selectByName(jedi);
+}
+ 
+}
