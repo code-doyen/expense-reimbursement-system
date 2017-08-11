@@ -1,5 +1,0 @@
-app.controller('jediController', function ($scope, $http)){
-	
-	
-	
-});

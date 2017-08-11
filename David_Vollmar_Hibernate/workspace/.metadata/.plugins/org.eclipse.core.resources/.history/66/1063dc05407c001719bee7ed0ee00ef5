@@ -1,9 +1,0 @@
-package com.revature.repository;
-
-import java.util.List;
-
-import com.revature.model.Jedi;
-
-public interface jediRepository {
-	public List<Jedi> selectAll();
-}

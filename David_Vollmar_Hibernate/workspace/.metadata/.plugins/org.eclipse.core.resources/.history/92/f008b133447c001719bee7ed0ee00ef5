@@ -1,7 +1,0 @@
-package com.revature.service;
-package com.revature.model;
-import java.util.List;
-
-public interface JediService {
-	public List<Jedi> getAllJedi();
-}
