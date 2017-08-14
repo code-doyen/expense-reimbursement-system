@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<bean name="jediRepository"
+		class="com.revature.repository.JediRepositoryHibernate" />
+		
+	<!-- Setter Injection -->
+	<!--bean name="jediService" 
+		class="com.revature.service.JediServiceForce">
+		<property name="jediRepository" ref="jediRepository"/>
+	</bean-->
+	
+	<!-- Constructor Injection -->
+	<!-- bean name="jediService" 
+		class="com.revature.service.JediServiceForce">
+		<constructor-arg index="0" ref="jediRepository"/>
+	</bean -->
+	
+	<!-- Constructor Autowire -->
+	<!-- bean name="jediService" 
+		class="com.revature.service.JediServiceForce" autowire="constructor">
+	</bean-->
+	
+	<!-- byType and byName Autowire -->
+	<!-- 
+		byName autowire will work the same in this example.
+		However, if you change the name of the bean upstairs,
+		the setter needs to follow the same convention.
+		1) byName cares about of the name of the setter and left part of the bean declaration.
+		2) byType cares about the type of the arguments of the setter and right part of the bean declaration.
+	 -->
+	<bean name="jediService"
+		class="com.revature.service.JediServiceForce" autowire="byType">
+	</bean>
+	
+	<!-- Register properties for primitive injection in application context -->
+	<context:property-placeholder location="jedis.properties"/>
+	
+	<!-- Primitives injection -->
+	<!--  
+	Profile name needs to match profileName.properties field.
+	Very useful for things like an RDS link, or an endpoint.
+	-->
+	<beans profile="jedis">
+		<bean name="specialJedi" 
+			class="com.revature.model.Jedi">
+			<property name="id" value="322"/>
+			<property name="name" value="${name}"/>
+			<property name="saberColor" value="${saberColor}"/>
+		</bean>
+	</beans>
+</beans>

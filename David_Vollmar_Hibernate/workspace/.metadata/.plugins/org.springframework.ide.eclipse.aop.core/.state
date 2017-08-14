@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aop-reference-model>
+<aop-project name="AspectSample"/>
+<aop-project name="SpringSampleXMLAnnotation"/>
+<aop-project name="SpringSampleMVC"/>
+<aop-project name="SpringSampleORM"/>
+<aop-project name="SpringSampleXML"/>
+</aop-reference-model>
